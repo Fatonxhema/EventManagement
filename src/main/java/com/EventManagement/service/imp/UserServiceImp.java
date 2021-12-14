@@ -20,12 +20,6 @@ public class UserServiceImp implements UserService {
         return userRepository.findByUserName(userName);
     }
 
-
-    @Override
-    public User editUserById(long id) {
-        return userRepository.findAllById(id);
-    }
-
     @Override
     public User deleteUSerById(long id) {
         return userRepository.deleteById(id);
