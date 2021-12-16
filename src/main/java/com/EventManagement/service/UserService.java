@@ -1,7 +1,9 @@
 package com.EventManagement.service;
 
 import com.EventManagement.model.User;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface UserService {
 
     User findUserByUserName(String userName);

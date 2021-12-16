@@ -1,8 +1,6 @@
 package com.EventManagement.model;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +9,9 @@ import javax.persistence.Table;
 
 @Table
 @Entity
-@Data
+@Getter@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Role {
 
     @Id

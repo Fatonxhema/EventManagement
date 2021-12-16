@@ -5,7 +5,6 @@ import com.EventManagement.model.User;
 import com.EventManagement.repository.UserRepository;
 import com.EventManagement.service.imp.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +15,9 @@ import java.util.List;
 
 @Controller
 public class UserController {
-    @Autowired
-    private UserRepository userRepository;
+    private UserServiceImp userServiceImp;
+
+    public UserRepository userRepository;
 
 
     @GetMapping("/")
@@ -37,7 +37,7 @@ public class UserController {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
 
-        userRepository.save(user);
+        userServiceImp.saveUser(user);
 
         return "register_success";
     }

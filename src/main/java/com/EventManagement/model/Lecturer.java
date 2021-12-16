@@ -1,14 +1,14 @@
 package com.EventManagement.model;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "lecturer")
-@Data
+@Getter@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Lecturer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

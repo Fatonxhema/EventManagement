@@ -1,8 +1,6 @@
 package com.EventManagement.model;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -10,7 +8,9 @@ import java.util.Set;
 
 @Table(name = "user")
 @Entity
-@Data
+@Getter@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     @Id
     private long id;
