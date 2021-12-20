@@ -12,4 +12,6 @@ public interface LecturerService {
     void saveLecturer(Lecturer lecturer);
     Optional<Lecturer> getLecturerById(long id);
     void deleteLecturerById(long id);
+    Lecturer findByName(String username);
+
 }

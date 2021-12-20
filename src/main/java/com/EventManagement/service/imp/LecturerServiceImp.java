@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Service
 public class LecturerServiceImp implements LecturerService {
 
     @Autowired
@@ -42,5 +41,10 @@ public class LecturerServiceImp implements LecturerService {
     @Override
     public void deleteLecturerById(long id) {
         lecturerRepository.deleteById(id);
+    }
+
+    @Override
+    public Lecturer findByName(String username) {
+        return lecturerRepository.findByName(username);
     }
 }
