@@ -16,7 +16,7 @@ import java.util.List;
 @Controller
 public class UserController {
     private UserServiceImp userServiceImp;
-
+    @Autowired
     public UserRepository userRepository;
 
 
