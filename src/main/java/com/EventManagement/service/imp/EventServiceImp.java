@@ -6,7 +6,7 @@ import com.EventManagement.service.EventService;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-
+@Service
 public class EventServiceImp implements EventService {
     EventRepository eventRepository;
 

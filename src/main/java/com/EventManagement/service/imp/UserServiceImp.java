@@ -6,7 +6,7 @@ import com.EventManagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+@Service
 public class UserServiceImp implements UserService {
     @Autowired
     private UserRepository userRepository;
@@ -20,8 +20,8 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public User deleteUSerById(long id) {
-        return userRepository.deleteById(id);
+    public void deleteUSerById(long id) {
+        userRepository.deleteById(id);
     }
 
     @Override

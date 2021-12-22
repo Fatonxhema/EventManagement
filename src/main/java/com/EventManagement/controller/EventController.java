@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class EventController {
 
+    @Autowired
     private EventService eventService;
 
     @GetMapping("/showEventForm")
