@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
+<!--	 xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5-->
+	  <link rel="stylesheet" type="text/css" href="../static/responsive.css" th:href="@{/responsive.css}">
+	  <link rel="stylesheet" type="text/css" href="../static/style.css" th:href="@{/style.css}">
+	  <link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
+	  <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+	  <link rel="icon" type="icon/png" href="../static/images/background.png" th:href="@{/images/background.png}">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="icon/png" href="images/Picture6.png">
 	<meta name="keywords" content="event, event management, Universum, Universum College">
 	<meta name="description" content="This is a event management system where you can see all events occurring in Universum College">
 	<title>Event Management</title>
-	<link rel="stylesheet" type="text/css" th:href="@{style.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{responsive.css}">
-	<link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+
 </head>
 <body onload="eventNames(), footer()" onresize="footer()">
 	<div id="events">
@@ -45,21 +46,24 @@
 				<div id="line"></div>
 			</div>
 			<div id="thisWeek">
-				<div id="card11" onclick="openCard(this)" th:each=" event : ${listEvent}">
+				<div th:each="event : ${listEvent}" th:id="card11" onclick="openCard(this)" >
 					<div>
-						<img src="../static/images/image.png" alt="event">
+						<img  src="../static/images/image.png" th:src="@{/images/image.png}" alt="event">
+
+
 						<h1>Event Name eeee eeee eee eeeeee eee</h1>
 					</div>
 					<div>
 						<p >Lecturer:</p> <p>Name Surname</p>
 						<p>Campus:</p> <p th:text="${event.location}">Ferizaj</p>
 						<p>Date:</p> <p th:text="${event.date}">dd/mm/yyyy</p>
-						<p>Time:</p> <p th:text="${event.date}">hh:mm:ss</p>
+						<p>Time:</p> <p th:text="${event.time}">hh:mm:ss</p>
 						<p>Room:</p> <p>000</p>
 						<p>Description:</p> <p th:text="${event.description}">Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
 					</div>
 					<button id="close11" onclick="closeCard(this)">x</button>
 				</div>
+
 			</div>
 			<div>
 				<p id="subtitle2">this Semester</p>
@@ -68,7 +72,7 @@
 			<div id="thisSemester">
 				<div id="card21" onclick="openCard(this)">
 					<div>
-						<img src="../static/images/image.png" alt="event">
+						<img  src="../static/images/image.png" th:src="@{/images/image.png}" alt="event">
 						<h1>Event Name</h1>
 					</div>
 					<div>
@@ -109,6 +113,6 @@
 		</div>
 	</div>
 	<div id="divBg"></div>
-	<script src="../static/script.js"></script>
+	<script th:src="@{/script.js}"></script>
 </body>
 </html>

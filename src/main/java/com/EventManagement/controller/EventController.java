@@ -20,7 +20,7 @@ public class EventController {
         List<Event> listEvent = eventService.findAllEvents();
         model.addAttribute("listEvent", listEvent);
 
-        return "admin/events";
+        return "events";
     }
 
     @GetMapping("/showEventForm")

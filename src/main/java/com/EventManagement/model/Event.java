@@ -31,4 +31,7 @@ public class Event {
     @Column(name = "event_date")
     @NotEmpty(message = "Please enter the date of the event")
     private Date date;
+    @Column(name = "time")
+    @NotEmpty(message = "Please enter the time of the event")
+    private String time;
 }
