@@ -1,0 +1,131 @@
+@media only screen and (max-aspect-ratio: 1/1) {
+	#background2 {
+		display: none;
+	}
+	#main {
+		justify-content: center;
+		padding: 0;
+	}
+	#title {
+		top: 5vw;
+		text-align: left;
+		font-size: 5vw;
+	}
+	#title p:nth-child(2) {
+		padding-left: 20vw;
+	}
+	#background img {
+		height: 20vh;
+		width: auto;
+		bottom: 5vh;
+	}
+	#login {
+		width: 80vw;
+		backdrop-filter: blur(3px);
+		background-color: rgba(0, 0, 0, 0.05);
+	}
+	#login input {
+		font-size: 2.5vw;
+		padding-left: 2vw;
+		background-color: #ffffff;
+	}
+	#login label {
+		font-size: 2.8vw;
+	}
+	#login button {
+		font-size: 3.2vw;
+		border-radius: 2vw;
+	}
+	#greetings {
+		font-size: 4vw;
+	}
+	#guest {
+		font-size: 3vw;
+	}
+
+	/**************  events  **************/
+	#navbar {
+		height: 15vw;
+	}
+	#navbar p {
+		font-size: 4vw;
+	}
+	#navbar button {
+		width: 18vw;
+		height: 6vw;
+		font-size: 2.5vw;
+		border: 0.5vw solid white;
+	}
+	#eventTitle, #lecturerTitle {
+		height: 8vw;
+		font-size: 4vw;
+	}
+	#eventLine, #lecturerLine {
+		width: 40vw;
+		height: 1px;
+	}
+	#filter {
+		height: 10vw;
+	}
+	#filter button {
+		width: 18vw;
+		height: 5vw;
+		font-size: 2.5vw;
+	}
+	#filter i {
+		font-size: 2.5vw;
+		padding-right: 1vw;
+	}
+	[id*="subtitle"] {
+		padding-left: 2vw;
+		font-size: 3.5vw;
+	}
+	[id*="line"] {
+		width: 30vw;
+		height: 1px;
+	}
+	[id*="this"] {
+		padding-bottom: 3vw;
+	}
+	[id*="card"] {
+		width: 38vw;
+		margin: 2vw;
+		border-radius: 1vw;
+	}
+	[id*="card"] img {
+		width: 32vw;
+		height: 32vw;
+		margin-top: 3vw;
+	}
+	[id*="card"] p {
+		margin: 1.5vw;
+		font-size: 3vw;
+	}
+	#footer {
+		margin-top: 10vw;
+		width: 100%;
+	}
+	#contact {
+		height: 6vw;
+		font-size: 3.5vw;
+	}
+	#campus {
+		height: 65vw;
+		flex-flow: column nowrap;
+	}
+	#campus p {
+		font-size: 2.5vw;
+	}
+	#campus i {
+		padding: 0.5vw 1vw;
+	}
+	#campus p:nth-child(1) {
+		font-size: 3vw;
+		padding-bottom: 1vw;
+	}
+	#copyright {
+		width: 60vw;
+		height: 8vw;
+		font-size: 2vw;
+	}
+}
