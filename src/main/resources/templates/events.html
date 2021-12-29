@@ -21,7 +21,7 @@
 			<div id="dropdown">
 				<button>Profile</button>
 				<div id="droplist">
-					<a href="index.html"><button>Login</button></a>
+					<a th:action="@{/logout}"><button>Log Out</button></a>
 					<a href="#contact"><button>Contact us</button></a>
 				</div>
 			</div>
@@ -51,14 +51,14 @@
 						<img  src="../static/images/image.png" th:src="@{/images/image.png}" alt="event">
 
 
-						<h1>Event Name eeee eeee eee eeeeee eee</h1>
+						<h1 th:text="${event.name}">Event Name eeee eeee eee eeeeee eee</h1>
 					</div>
 					<div>
-						<p >Lecturer:</p> <p>Name Surname</p>
+						<p >Lecturer:</p> <p th:text="${event.lecturer}">Name Surname</p>
 						<p>Campus:</p> <p th:text="${event.location}">Ferizaj</p>
 						<p>Date:</p> <p th:text="${event.date}">dd/mm/yyyy</p>
 						<p>Time:</p> <p th:text="${event.time}">hh:mm:ss</p>
-						<p>Room:</p> <p>000</p>
+						<p>Room:</p> <p th:text="${event.room}">000</p>
 						<p>Description:</p> <p th:text="${event.description}">Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
 					</div>
 					<button id="close11" onclick="closeCard(this)">x</button>

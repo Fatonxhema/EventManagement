@@ -33,12 +33,12 @@ public class LecturerController {
         lecturerService.saveLecturer(Lecturer);
         return "register_success";
     }
-    @GetMapping("/Lecturers")
-    public String listLecturers(Model model) {
-        List<Lecturer> listLecturers = lecturerService.findAllLecturer();
-        model.addAttribute("listLecturers", listLecturers);
-
-        return "lecturer";
-    }
+//    @GetMapping("/Lecturers")
+//    public String listLecturers(Model model) {
+//        List<Lecturer> listLecturers = lecturerService.findAllLecturer();
+//        model.addAttribute("listLecturers", listLecturers);
+//
+//        return "lecturer";
+//    }
 
 }

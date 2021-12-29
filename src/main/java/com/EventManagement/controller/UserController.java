@@ -19,11 +19,6 @@ public class UserController {
     public UserRepository userRepository;
 
 
-//    @GetMapping("/")
-//    public String viewHomePage() {
-//        return "index";
-//    }
-
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new User());
