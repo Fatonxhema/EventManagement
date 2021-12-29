@@ -1,15 +1,46 @@
 package com.EventManagement.service;
 
 import com.EventManagement.model.Event;
+import com.EventManagement.repository.EventRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
-public interface EventService {
-    Event createEvent(Event event);
-    Event updateEvent(long id);
-    void deleteById(long id);
-    void findAllEvents();
-    Event chooseByCampus(String campus);
-    Event showByDate(Date date);
+@Service
+public class EventService {
+
+    @Autowired
+    EventRepository eventRepository;
+
+
+    public Event createEvent(Event event) {
+        return eventRepository.save(event) ;
+    }
+
+
+    public Event getId(long id) {
+        return eventRepository.getById(id);
+    }
+
+
+    public void deleteById(long id) {
+        eventRepository.deleteById(id);
+    }
+
+
+    public List<Event> findAllEvents() {
+       return eventRepository.findAll();
+    }
+
+
+    public Event chooseByCampus(String campus) {
+        return eventRepository.findByCampus(campus);
+    }
+
+
+    public Event showByDate(Date date) {
+        return eventRepository.findByDate(date);
+    }
 }

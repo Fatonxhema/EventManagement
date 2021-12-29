@@ -1,12 +1,11 @@
 package com.EventManagement.service;
 
-import com.EventManagement.model.User;
-import org.springframework.stereotype.Service;
+import com.EventManagement.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public interface UserService {
+public class UserService {
+    @Autowired
+    private UserRepository userRepository;
 
-    User findUserByUserName(String userName);
-    void deleteUSerById(long id);
-    User saveUser(User user);
-    User findUserByEmail(String email);
+
 }

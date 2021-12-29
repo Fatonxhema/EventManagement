@@ -3,7 +3,6 @@ package com.EventManagement.controller;
 
 import com.EventManagement.model.User;
 import com.EventManagement.repository.UserRepository;
-import com.EventManagement.service.imp.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -15,16 +14,15 @@ import java.util.List;
 
 @Controller
 public class UserController {
-    @Autowired
-    private UserServiceImp userServiceImp;
+
     @Autowired
     public UserRepository userRepository;
 
 
-    @GetMapping("/")
-    public String viewHomePage() {
-        return "index";
-    }
+//    @GetMapping("/")
+//    public String viewHomePage() {
+//        return "index";
+//    }
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
@@ -32,13 +30,13 @@ public class UserController {
 
         return "signup_form";
     }
-    @PostMapping("/process_register")
+    @PostMapping("/process_register_user")
     public String processRegister(User user) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
 
-        userServiceImp.saveUser(user);
+        userRepository.save(user);
 
         return "register_success";
     }
