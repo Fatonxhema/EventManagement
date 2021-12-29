@@ -8,8 +8,8 @@
 	<meta name="keywords" content="event, event management, Universum, Universum College">
 	<meta name="description" content="This is a event management system where you can see all events occurring in Universum College">
 	<title>Event Management</title>
-	<link rel="stylesheet" type="text/css" href="../../static/style.css">
-	<link rel="stylesheet" type="text/css" href="../../static/responsive.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/responsive.css}">
 	<link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
 </head>
@@ -41,7 +41,7 @@
 					<th sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">Actions</th>
 				</tr>
 				<tr th:each="lecture : ${listLecturers}">
-					<td th:text="${lecture.id}">1</tdth:textlecture.id>
+					<td th:text="${lecture.id}">1</td>
 					<td th:text="${lecture.name}">Name Surname</td>
 					<td th:text="${lecture.email}">Someone123@domain.com</td>
 					<td th:text="${lecture.phone_no}">+000 00 000 000</td>
@@ -74,6 +74,6 @@
 			<div id="copyright"><p>Copyright &copy; 2021, Universum College</p></div>
 		</div>
 	</div>
-	<script src="../../static/script.js"></script>
+	<script th:src="@{/script.js}"></script>
 </body>
 </html>

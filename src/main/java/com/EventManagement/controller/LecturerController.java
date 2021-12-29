@@ -20,7 +20,7 @@ public class LecturerController {
     public String getAllLecturer(Model model){
         List<Lecturer> list = lecturerService.findAllLecturer();
        model.addAttribute("listLecturer",list);
-       return "lecturer";
+       return "admin/lecturer";
     }
     @GetMapping("/register_lecturer")
     public String showRegistrationForm(Model model) {
