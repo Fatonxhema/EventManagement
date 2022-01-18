@@ -14,7 +14,10 @@ public class EventController {
 
     @Autowired
     private EventService eventService;
-
+    @GetMapping("/login")
+    public String showLoginPage(){
+        return "login";
+    }
     @RequestMapping("/")
     public String viewHomePage(Model model) {
         List<Event> listEvent = eventService.findAllEvents();

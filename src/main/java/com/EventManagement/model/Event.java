@@ -1,6 +1,6 @@
 package com.EventManagement.model;
 
-import ch.qos.logback.core.rolling.helper.SizeAndTimeBasedArchiveRemover;
+
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,10 +10,7 @@ import java.util.Set;
 
 @Table
 @Entity(name = "event")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class Event {
 
     @Id

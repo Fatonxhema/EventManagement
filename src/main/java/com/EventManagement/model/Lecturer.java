@@ -7,9 +7,7 @@ import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "lecturer")
-@Getter@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class Lecturer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

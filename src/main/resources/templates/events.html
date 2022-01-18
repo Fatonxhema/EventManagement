@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <!--	 xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5-->
-	  <link rel="stylesheet" type="text/css" href="../static/responsive.css" th:href="@{/responsive.css}">
-	  <link rel="stylesheet" type="text/css" href="../static/style.css" th:href="@{/style.css}">
-	  <link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
-	  <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
-	  <link rel="icon" type="icon/png" href="../static/images/background.png" th:href="@{/images/background.png}">
+<link rel="stylesheet" type="text/css" href="../static/responsive.css" th:href="@{/styles/responsive.css}">
+<link rel="stylesheet" type="text/css" href="../static/style.css" th:href="@{/styles/style.css}">
+<link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+<link rel="icon" type="icon/png" href="../static/images/background.png" th:href="@{/images/background.png}">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,104 +15,104 @@
 
 </head>
 <body onload="eventNames(), footer()" onresize="footer()">
-	<div id="events">
-		<div id="navbar">
-			<p>Event Management</p>
-			<div id="dropdown">
-				<button>Profile</button>
-				<div id="droplist">
-					<a th:action="@{/logout}"><button>Log Out</button></a>
-					<a href="#contact"><button>Contact us</button></a>
-				</div>
+<div id="events">
+	<div id="navbar">
+		<p>Event Management</p>
+		<div id="dropdown">
+			<button>Profile</button>
+			<div id="droplist">
+				<a th:action="@{/logout}"><button>Log Out</button></a>
+				<a href="#contact"><button>Contact us</button></a>
 			</div>
-		</div>
-		<div id="eventTitle"><p>Events</p></div>
-		<div id="eventLine"></div>
-		<div id="filter">
-			<div id="dropdown2">
-				<button><i class="fas fa-filter"></i>Filter</button>
-				<div id="droplist2">
-					<button onclick="filter('All')">All</button>
-					<button onclick="filter('Prishtine')">Prishtinë</button>
-					<button onclick="filter('Ferizaj')">Ferizaj</button>
-					<button onclick="filter('Gjakove')">Gjakovë</button>
-				</div>
-			</div>
-			
-		</div>
-		<div id="eventsCards">
-			<div>
-				<p id="subtitle">this Week</p>
-				<div id="line"></div>
-			</div>
-			<div id="thisWeek">
-				<div th:each="event : ${listEvent}" th:id="card11" onclick="openCard(this)" >
-					<div>
-						<img  src="../static/images/image.png" th:src="@{/images/image.png}" alt="event">
-
-
-						<h1 th:text="${event.name}">Event Name eeee eeee eee eeeeee eee</h1>
-					</div>
-					<div>
-						<p >Lecturer:</p> <p th:text="${event.lecturer}">Name Surname</p>
-						<p>Campus:</p> <p th:text="${event.location}">Ferizaj</p>
-						<p>Date:</p> <p th:text="${event.date}">dd/mm/yyyy</p>
-						<p>Time:</p> <p th:text="${event.time}">hh:mm:ss</p>
-						<p>Room:</p> <p th:text="${event.room}">000</p>
-						<p>Description:</p> <p th:text="${event.description}">Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
-					</div>
-					<button id="close11" onclick="closeCard(this)">x</button>
-				</div>
-
-			</div>
-			<div>
-				<p id="subtitle2">this Semester</p>
-				<div id="line2"></div>
-			</div>
-			<div id="thisSemester">
-				<div id="card21" onclick="openCard(this)">
-					<div>
-						<img  src="../static/images/image.png" th:src="@{/images/image.png}" alt="event">
-						<h1>Event Name</h1>
-					</div>
-					<div>
-						<p>Lecturer:</p> <p>Name Surname</p>
-						<p>Campus:</p> <p>Prishtine</p>
-						<p>Date:</p> <p>dd/mm/yyyy</p>
-						<p>Time:</p> <p>hh:mm:ss</p>
-						<p>Room:</p> <p>000</p>
-						<p>Description:</p> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-					</div>
-					<button id="close21" onclick="closeCard(this)">x</button>
-				</div>
-			</div>
-		</div>
-		<div id="footer">
-			<div id="contact"><p>Contact Us</p></div>
-			<div id="campus">
-				<div>
-					<p>Ferizaj</p>
-					<p><i class="fas fa-map-marker-alt"></i>Rrethi QMI, 14000 Lipjan, Kosovo</p>
-					<p><i class="fas fa-phone"></i><a href="tel:+383 44 725 675x">+383 44 725 675</a></p>
-					<p><i class="fas fa-envelope"></i><a href="mailto:administratafr@universum-ks.org">administratafr@universum-ks.org</a></p>
-				</div>
-				<div>
-					<p>Prishtinë</p>
-					<p><i class="fas fa-map-marker-alt"></i>Rr. Fan Noli, 70000 Ferizaj, Kosovo</p>
-					<p><i class="fas fa-phone"></i><a href="tel:+383 44 144 062x">+383 44 144 062</a></p>
-					<p><i class="fas fa-envelope"></i><a href="mailto:administratapr@universum-ks.org">administratapr@universum-ks.org</a></p>
-				</div>
-				<div>
-					<p>Gjakovë</p>
-					<p><i class="fas fa-map-marker-alt"></i>Rr. UÇK, 50000 Gjakova, Kosovo</p>
-					<p><i class="fas fa-phone"></i><a href="tel:+383 44 750 858x">+383 44 750 858</a></p>
-					<p><i class="fas fa-envelope"></i><a href="mailto:administratagjk@universum-ks.org">administratagjk@universum-ks.org</a></p>
-				</div>
-			</div>
-			<div id="copyright"><p>Copyright &copy; 2021, Universum College</p></div>
 		</div>
 	</div>
-	<div id="divBg"></div>
-	<script th:src="@{/script.js}"></script>
+	<div id="eventTitle"><p>Events</p></div>
+	<div id="eventLine"></div>
+	<div id="filter">
+		<div id="dropdown2">
+			<button><i class="fas fa-filter"></i>Filter</button>
+			<div id="droplist2">
+				<button onclick="filter('All')">All</button>
+				<button onclick="filter('Prishtine')">Prishtinë</button>
+				<button onclick="filter('Ferizaj')">Ferizaj</button>
+				<button onclick="filter('Gjakove')">Gjakovë</button>
+			</div>
+		</div>
+
+	</div>
+	<div id="eventsCards">
+		<div>
+			<p id="subtitle">this Week</p>
+			<div id="line"></div>
+		</div>
+		<div id="thisWeek">
+			<div th:each="event : ${listEvent}" th:id="card11" onclick="openCard(this)" >
+				<div>
+					<img  src="../static/images/image.png" th:src="@{/images/image.png}" alt="event">
+
+
+					<h1 th:text="${event.name}">Event Name eeee eeee eee eeeeee eee</h1>
+				</div>
+				<div>
+					<p >Lecturer:</p> <p th:text="${event.lecturer}">Name Surname</p>
+					<p>Campus:</p> <p th:text="${event.location}">Ferizaj</p>
+					<p>Date:</p> <p th:text="${event.date}">dd/mm/yyyy</p>
+					<p>Time:</p> <p th:text="${event.time}">hh:mm:ss</p>
+					<p>Room:</p> <p th:text="${event.room}">000</p>
+					<p>Description:</p> <p th:text="${event.description}">Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+				</div>
+				<button id="close11" onclick="closeCard(this)">x</button>
+			</div>
+
+		</div>
+		<div>
+			<p id="subtitle2">this Semester</p>
+			<div id="line2"></div>
+		</div>
+		<div id="thisSemester">
+			<div id="card21" onclick="openCard(this)">
+				<div>
+					<img  src="../static/images/image.png" th:src="@{/images/image.png}" alt="event">
+					<h1>Event Name</h1>
+				</div>
+				<div>
+					<p>Lecturer:</p> <p>Name Surname</p>
+					<p>Campus:</p> <p>Prishtine</p>
+					<p>Date:</p> <p>dd/mm/yyyy</p>
+					<p>Time:</p> <p>hh:mm:ss</p>
+					<p>Room:</p> <p>000</p>
+					<p>Description:</p> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				</div>
+				<button id="close21" onclick="closeCard(this)">x</button>
+			</div>
+		</div>
+	</div>
+	<div id="footer">
+		<div id="contact"><p>Contact Us</p></div>
+		<div id="campus">
+			<div>
+				<p>Ferizaj</p>
+				<p><i class="fas fa-map-marker-alt"></i>Rrethi QMI, 14000 Lipjan, Kosovo</p>
+				<p><i class="fas fa-phone"></i><a href="tel:+383 44 725 675x">+383 44 725 675</a></p>
+				<p><i class="fas fa-envelope"></i><a href="mailto:administratafr@universum-ks.org">administratafr@universum-ks.org</a></p>
+			</div>
+			<div>
+				<p>Prishtinë</p>
+				<p><i class="fas fa-map-marker-alt"></i>Rr. Fan Noli, 70000 Ferizaj, Kosovo</p>
+				<p><i class="fas fa-phone"></i><a href="tel:+383 44 144 062x">+383 44 144 062</a></p>
+				<p><i class="fas fa-envelope"></i><a href="mailto:administratapr@universum-ks.org">administratapr@universum-ks.org</a></p>
+			</div>
+			<div>
+				<p>Gjakovë</p>
+				<p><i class="fas fa-map-marker-alt"></i>Rr. UÇK, 50000 Gjakova, Kosovo</p>
+				<p><i class="fas fa-phone"></i><a href="tel:+383 44 750 858x">+383 44 750 858</a></p>
+				<p><i class="fas fa-envelope"></i><a href="mailto:administratagjk@universum-ks.org">administratagjk@universum-ks.org</a></p>
+			</div>
+		</div>
+		<div id="copyright"><p>Copyright &copy; 2021, Universum College</p></div>
+	</div>
+</div>
+<div id="divBg"></div>
+<script th:src="@{/js/script.js}"></script>
 </body>
 </html>
