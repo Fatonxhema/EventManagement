@@ -123,7 +123,7 @@ a {
 /*************  events  ****************/
 
 
-#events, #lecturer {
+#events, #lecturer, #user, #profile {
 	width: 100%;
 	display: flex;
 	justify-content: center;
@@ -145,7 +145,14 @@ a {
 #navbar p {
 	font-size: 2vw;
 }
-#navbar button {
+#adminNav {
+	width: 40vw;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+#adminNav button {
+	cursor: pointer;
 	width: 9vw;
 	height: 3vw;
 	font-size: 1.2vw;
@@ -163,6 +170,7 @@ a {
 	position: absolute;
 	box-shadow: 0 2px 5px #cccccc;
 	background-color: white;
+	z-index: 10;
 }
 [id*="dropdown"]:hover [id*="droplist"] {
 	display: block;
@@ -178,14 +186,14 @@ a {
 }
 
 
-#eventTitle, #lecturerTitle {
+#eventTitle, #lecturerTitle, #userTitle, #profileTitle {
 	height: 4vw;
 	display: flex;
 	align-items: center;
 	font-size: 2vw;
 	color: #f22045;
 }
-#eventLine, #lecturerLine {
+#eventLine, #lecturerLine, #userLine, #profileLine {
 	width: 30vw;
 	height: 2px;
 	background-color: #777777;
@@ -196,8 +204,8 @@ a {
 	width: 85vw;
 	height: 5vw;
 	display: flex;
-	justify-content: flex-end;
-	align-items: flex-end;
+	justify-content: space-between;
+	align-items: center;
 }
 #filter button {
 	width: 9vw;
@@ -206,6 +214,11 @@ a {
 	background-color: #fafafa;
 	border-radius: 0.5vw;
 	box-shadow: 0 0 5px #cccccc;
+}
+#addEventBtn {
+	cursor: pointer;
+	background-color: #f22045 !important;
+	color: white;
 }
 #filter i {
 	font-size: 1.2vw;
@@ -230,6 +243,41 @@ a {
 #eventsCards, #lecturerList {
 	width: 85vw;
 }
+#profileInfo {
+	width: 50vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-flow: row wrap;
+	margin-top: 3vw;
+}
+#profileInfo p {
+	font-size: 1.5vw;
+	padding: 0.5vw 0;
+	margin: 0.5vw 0;
+	/*border-bottom: 1px solid #666666;*/
+}
+#profileInfo p:nth-child(odd) {
+	width: 25%;
+	text-align: right;
+	margin-right: 3vw;
+}
+#profileInfo p:nth-child(even) {
+	width: 50%;
+	padding-left: 1vw;
+	border: 1px solid #aaaaaa;
+}
+#profileInfo button {
+	cursor: pointer;
+	width: 40%;
+	height: 3vw;
+	background-color: #f22045;
+	color: white;
+	font-size: 1.5vw;
+	border-radius: 0.5vw;
+	margin-top: 2vw;
+
+}
 
 [id*="subtitle"] {
 	padding-left: 1vw;
@@ -251,6 +299,7 @@ a {
 
 
 [id*="card"] {
+	position: relative;
 	width: 15vw;
 	display: flex;
 	justify-content: center;
@@ -261,7 +310,6 @@ a {
 	border-radius: 0.5vw;
 	margin: 1vw;
 }
-
 
 [id*="card"] div:nth-child(1) {
 	display: flex;
@@ -306,8 +354,36 @@ a {
 	font-weight: normal;
 }
 
+[id*="adminBtn"] {
+	position: absolute;
+	top: 0.5vw;
+	right: 0.5vw;
+	display: none;
+}
+[id*="card"]:hover [id*="adminBtn"] {
+	display: flex !important;
+}
+[id*="adminBtn"] button {
+	font-size: 1.2vw;
+	color: white;
+	background-color: #555555;
+	padding: 0.5vw;
+	margin-left: 0.5vw;
+	border-radius: 0.25vw;
+	cursor: pointer;
+}
+[id*="adminBtn"] button i {
+	font-size: 1.4vw;
+}
+[id*="adminBtn"] button:nth-child(1):hover {
+	background-color: #f26025;
+}
+[id*="adminBtn"] button:nth-child(2):hover {
+	background-color: #f22045;
+}
 
-#divBg {
+
+#divBg, #divBg2, #divBg3, #divBg4 {
 	display: none;
 	position: fixed;
 	top: 0;
@@ -353,6 +429,181 @@ a {
 	padding-right: 1vw;
 }
 
+#addEvent, #editEvent {
+	position: fixed;
+	top: 5vh;
+	left: 25vw;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	flex-flow: row wrap;
+	width: 50vw;
+	height: 90vh;
+	background-color: white;
+	border-radius: 0.5vw;
+	font-size: 1.4vw;
+	z-index: 3;
+}
+#addLecturer, #editLecturer, #addUser, #editUser {
+	position: fixed;
+	top: 20vh;
+	left: 25vw;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	flex-flow: row wrap;
+	width: 45vw;
+	height: 55vh;
+	background-color: white;
+	border-radius: 0.5vw;
+	font-size: 1.4vw;
+	z-index: 3;
+}
+#changePass {
+	position: fixed;
+	top: 30vh;
+	left: 30vw;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	flex-flow: row wrap;
+	width: 40vw;
+	height: 40vh;
+	background-color: white;
+	border-radius: 0.5vw;
+	font-size: 1.4vw;
+	z-index: 3;
+}
+#deleteEvent, #deleteLecturer, #deleteUser {
+	position: fixed;
+	top: 30vh;
+	left: 30vw;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	flex-flow: row wrap;
+	width: 40vw;
+	height: 40vh;
+	background-color: white;
+	border-radius: 0.5vw;
+	font-size: 1.5vw;
+	z-index: 3;
+}
+#addEvent label, #editEvent label {
+	display: inline-block;
+	text-align: right;
+	vertical-align: top;
+	width: 35%;
+}
+#addLecturer label, #editLecturer label, #addUser label, #editUser label, #changePass label {
+	display: inline-block;
+	text-align: right;
+	vertical-align: middle;
+	width: 30%;
+}
+#changePass label {
+	width: 40%;
+}
+#changePass [type *="submit"] {
+	margin-top: 1vw;
+}
+#deleteEvent p, #deleteLecturer p, #deleteUser p {
+	padding-top: 2vw;
+	width: 80%;
+	text-align: center;
+}
+#addEvent input, #addEvent textarea, #editEvent input, #editEvent textarea {
+	display: inline-block;
+	width: 40%;
+	font-size: 1.2vw;
+	background-color: #eeeeee;
+	border-radius: 1vw;
+	padding: 0.5vw 1vw;
+	margin:0 0 1vw 1vw;
+}
+#addLecturer input, #editLecturer input, #addUser input, #editUser input, #changePass input {
+	display: inline-block;
+	width: 45%;
+	font-size: 1.2vw;
+	background-color: #eeeeee;
+	border-radius: 2vw;
+	padding: 0.75vw 1vw;
+	margin:1vw 0 0 1vw;
+}
+#addEvent div, #editEvent div, #changePass div {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	padding-top: 1vw;
+}
+#addLecturer div, #editLecturer div, #addUser div, #editUser div {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	padding-top: 2vw;
+}
+#addEvent button, #editEvent button {
+	cursor: pointer;
+	width: 30%;
+	height: 3vw;
+	border-radius: 0.5vw;
+	background-color: #f22045;
+	color: white;
+	font-size: 1.5vw;
+}
+#addLecturer button, #editLecturer button, #addUser button, #editUser button, #changePass button {
+	cursor: pointer;
+	width: 30%;
+	height: 3vw;
+	border-radius: 0.5vw;
+	background-color: #f22045;
+	color: white;
+	font-size: 1.5vw;
+}
+#deleteEvent button, #deleteLecturer button, #deleteUser button {
+	cursor: pointer;
+	width: 30%;
+	height: 3vw;
+	border-radius: 0.5vw;
+	margin: 1vw;
+	color: white;
+	background-color: #f22045;
+	font-size: 1.4vw;
+}
+#deleteEvent button:nth-child(3), #deleteLecturer button:nth-child(3), #deleteUser button:nth-child(3) {
+	background-color: #777777;
+}
+#addEvent #exitAdd, #editEvent #exitEdit, #changePass #exitPass {
+	position: absolute;
+	top: 1vw;
+	right: 1vw;
+	width: 3vw;
+	height: 3vw;
+	border-radius: 0.5vw;
+	font-size: 2vw;
+}
+#addLecturer #exitAdd2, #editLecturer #exitEdit2, #addUser #exitAdd3, #editUser #exitEdit3 {
+	position: absolute;
+	top: 1vw;
+	right: 1vw;
+	width: 3vw;
+	height: 3vw;
+	border-radius: 0.5vw;
+	font-size: 2vw;
+}
+[type *= "radio"] {
+	width: 1vw;
+	height: 1vw;
+	margin: 0 !important;
+}
+#addUser span, #editUser span {
+	display: inline-grid;
+	grid-template-columns: 2vw 8vw 2vw 8vw;
+	align-content: center;
+	font-size: 1.2vw;
+	margin:1vw 0 0 1vw;
+}
+
 
 /**************  lecturer  *******************/
 
@@ -364,15 +615,16 @@ a {
 	justify-content: flex-end;
 	align-items: center;
 }
-#addLecturer {
+#addToList button {
+	cursor: pointer;
 	width: 8vw;
 	height: 2.5vw;
 	border-radius: 0.5vw;
 	font-size: 1.2vw;
 	color: white;
-	background-color: deepskyblue;
+	background-color: #f22045;
 }
-#addLecturer i {
+#addToList button i {
 	padding-right: 1vw;
 }
 table, th, td {
@@ -422,13 +674,29 @@ td button {
 	padding:0 1vw;
 	border-radius: 0.5vw;
 	color: white;
-	background-color: #f22045;
+	background-color: #666666;
 }
-td button:nth-child(1) {
+td button:nth-child(1):hover {
 	background-color: #f26025;
+}
+td button:nth-child(2):hover {
+	background-color: #f22045;
 }
 td i {
 	padding-right: 1vw;
+}
+
+#userList th:nth-child(3) {
+	width: 28%;
+}
+#userList th:nth-child(4) {
+	width: 12%;
+}
+#userList th:nth-child(5) {
+	width: 13%;
+}
+#userList th:nth-child(6) {
+	width: 22%;
 }
 
 
@@ -454,8 +722,8 @@ td i {
 	align-items: flex-end;
 	font-size: 1.5vw;
 }
-	
-		
+
+
 #campus {
 	width: 100%;
 	height: 10vw;

@@ -5,10 +5,10 @@ import com.EventManagement.service.LecturerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class LecturerController {
@@ -22,23 +22,34 @@ public class LecturerController {
        model.addAttribute("listLecturer",list);
        return "lecturer";
     }
-    @GetMapping("/register_lecturer")
-    public String showRegistrationForm(Model model) {
-        model.addAttribute("Lecturer", new Lecturer());
-
-        return "signup_form";
+    @GetMapping("/newlecturer")
+    public String newLectureForm(Model model) {
+    Lecturer lecture = new Lecturer();
+    model.addAttribute("lecture ", lecture);
+    return "new_lecturer";
     }
-    @PostMapping("/process_register_lecturer")
-    public String processRegister(Lecturer Lecturer) {
+    @RequestMapping(value = "/saveLecturer", method = RequestMethod.POST)
+    public String saveLecturer(Lecturer Lecturer) {
         lecturerService.saveLecturer(Lecturer);
-        return "register_success";
+        return "redirect:/";
     }
-//    @GetMapping("/Lecturers")
-//    public String listLecturers(Model model) {
-//        List<Lecturer> listLecturers = lecturerService.findAllLecturer();
-//        model.addAttribute("listLecturers", listLecturers);
-//
-//        return "lecturer";
-//    }
+    @RequestMapping(value = "/updateLecturer", method = {RequestMethod.PUT, RequestMethod.GET})
+    public String updateLecturer(Lecturer lecturer){
+        lecturerService.saveLecturer(lecturer);
+        return "redirect:/";
+    }
+
+    @GetMapping("/getIdProduct")
+    @ResponseBody
+    public Optional<Lecturer> getId(long id){
+        Optional<Lecturer> lecture = lecturerService.findLecturerById(id);
+        return lecture;
+    }
+    @RequestMapping("/deleteLecturer/{id}")
+    public String deleteLecturer(@PathVariable(name ="id") long id){
+        lecturerService.deleteLecturerById(id);
+        return "redirect:/";
+    }
+
 
 }

@@ -14,10 +14,12 @@ public class EventController {
 
     @Autowired
     private EventService eventService;
+
     @GetMapping("/login")
     public String showLoginPage(){
         return "login";
     }
+
     @RequestMapping("/")
     public String viewHomePage(Model model) {
         List<Event> listEvent = eventService.findAllEvents();
@@ -26,15 +28,14 @@ public class EventController {
         return "events";
     }
 
-    @GetMapping("/showEventForm")
+    @GetMapping("/newEvent")
     public String showNewEventForm(Model model){
-
         Event event = new Event();
         model.addAttribute("event", event);
         return "new_event";
     }
-    @PostMapping("/saveEvent")
-    public String saveEvent(@ModelAttribute("event") Event event){
+    @RequestMapping(value = "/saveEvent", method = RequestMethod.POST)
+    public String saveEvent( Event event){
         eventService.createEvent(event);
         return "redirect:/";
     }
@@ -53,7 +54,7 @@ public class EventController {
         return event;
     }
 
-    @RequestMapping("/delete/{id}")
+    @RequestMapping("/deleteEvent/{id}")
     public String deleteProduct(@PathVariable(name = "id") Long id) {
         eventService.deleteById(id);
 

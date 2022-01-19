@@ -1,34 +1,42 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<!--	 xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5-->
-<link rel="stylesheet" type="text/css" href="../static/responsive.css" th:href="@{/styles/responsive.css}">
-<link rel="stylesheet" type="text/css" href="../static/style.css" th:href="@{/styles/style.css}">
-<link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
-<link rel="icon" type="icon/png" href="../static/images/background.png" th:href="@{/images/background.png}">
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="icon/png" href="../static/images/background.png" th:href="@{/images/background.png}">
 	<meta name="keywords" content="event, event management, Universum, Universum College">
 	<meta name="description" content="This is a event management system where you can see all events occurring in Universum College">
 	<title>Event Management</title>
-
+	<link rel="stylesheet" type="text/css" href="../static/responsive.css" th:href="@{/styles/responsive.css}">
+	<link rel="stylesheet" type="text/css" href="../static/style.css" th:href="@{/styles/style.css}">
+	<link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
 </head>
-<body onload="eventNames(), footer()" onresize="footer()">
-<div id="events">
+<body onload="eventNames(), footer(), pictures()" onresize="footer()" onkeydown="escFunc()" ondblclick="toggle()">
+<div id="events" sec:authorize="isAuthenticated()">
 	<div id="navbar">
 		<p>Event Management</p>
-		<div id="dropdown">
-			<button>Profile</button>
-			<div id="droplist">
-				<a th:action="@{/logout}"><button>Log Out</button></a>
-				<a href="#contact"><button>Contact us</button></a>
+		<div id="adminNav">
+			<a th:href="@{events}"><button style="color:#f22045;background:white;">Events</button></a>
+			<a th:href="@{lecturer}"><button sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Lecturers</button></a>
+			<a th:href="@{users}" ><button sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Users</button></a>
+			<div id="dropdown">
+				<button th:href="profile">Profile</button>
+				<div id="droplist">
+					<!-- <a href="login.html"><button>Login</button></a>
+                    <a href="#contact"><button>Contact us</button></a> -->
+<!--					href="profile.html"href="login.html"-->
+					<a  sec:authentication="name"><button>AdminName</button></a>
+					<a th:href="@{login}"><button>Log out</button></a>
+				</div>
 			</div>
 		</div>
 	</div>
 	<div id="eventTitle"><p>Events</p></div>
 	<div id="eventLine"></div>
 	<div id="filter">
+		<button id="addEventBtn" onclick="addEvent()">Add Event</button>
 		<div id="dropdown2">
 			<button><i class="fas fa-filter"></i>Filter</button>
 			<div id="droplist2">
@@ -42,11 +50,11 @@
 	</div>
 	<div id="eventsCards">
 		<div>
-			<p id="subtitle">this Week</p>
+			<p id="subtitle">This Week</p>
 			<div id="line"></div>
 		</div>
 		<div id="thisWeek">
-			<div th:each="event : ${listEvent}" th:id="card11" onclick="openCard(this)" >
+			<div id="card11" onclick="openCard(this)" th:each="event : ${listEvent}">
 				<div>
 					<img  src="../static/images/image.png" th:src="@{/images/image.png}" alt="event">
 
@@ -54,25 +62,28 @@
 					<h1 th:text="${event.name}">Event Name eeee eeee eee eeeeee eee</h1>
 				</div>
 				<div>
-					<p >Lecturer:</p> <p th:text="${event.lecturer}">Name Surname</p>
+					<p >Lecturer:</p> <p th:text="${event.getLecturer()}">Name Surname</p>
 					<p>Campus:</p> <p th:text="${event.location}">Ferizaj</p>
 					<p>Date:</p> <p th:text="${event.date}">dd/mm/yyyy</p>
 					<p>Time:</p> <p th:text="${event.time}">hh:mm:ss</p>
 					<p>Room:</p> <p th:text="${event.room}">000</p>
 					<p>Description:</p> <p th:text="${event.description}">Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
 				</div>
+				<div id="adminBtn11">
+					<button onclick="editEvent(this)"><i class="fas fa-edit"></i></button>
+					<button onclick="deleteEvent(this)"><i class="fas fa-trash-alt"></i></button>
+				</div>
 				<button id="close11" onclick="closeCard(this)">x</button>
 			</div>
-
 		</div>
 		<div>
-			<p id="subtitle2">this Semester</p>
+			<p id="subtitle2">This Semester</p>
 			<div id="line2"></div>
 		</div>
 		<div id="thisSemester">
 			<div id="card21" onclick="openCard(this)">
 				<div>
-					<img  src="../static/images/image.png" th:src="@{/images/image.png}" alt="event">
+					<img src="" alt="event">
 					<h1>Event Name</h1>
 				</div>
 				<div>
@@ -113,6 +124,51 @@
 	</div>
 </div>
 <div id="divBg"></div>
+<!--<div id="addEvent">-->
+<!--	<button id="exitAdd" onclick="exitAdd(this)">x</button>-->
+<!--	<form th:action="@/saveEvent}" method="post">-->
+<!--		<label>Event Name:</label>-->
+<!--		<input type="text" name="name" placeholder="Event Name" required th:field="*{event.name}">-->
+<!--		<label>Lecturer:</label>-->
+<!--		<input type="text" name="lecturer" placeholder="Name Surname" required th:field="*{event.lecturer}">-->
+<!--		<label>Campus:</label>-->
+<!--		<input type="text" name="location" placeholder="Choose Campus" required th:field="*{event.location}">-->
+<!--		<label>Date:</label>-->
+<!--		<input type="date" name="date" required th:field="*{event.date}">-->
+<!--		<label>Time:</label>-->
+<!--		<input type="time" name="time" required th:field="*{event.time}">-->
+<!--		<label>Room:</label>-->
+<!--		<input type="text" name="room" placeholder="Choose Room" required th:field="*{event.room}">-->
+<!--		<label>Description:</label>-->
+<!--		<textarea name="description" placeholder="Description" rows="4" required th:field="*{event.description}"></textarea>-->
+<!--		<div><button type="submit">Add</button></div>-->
+<!--	</form>-->
+<!--</div>-->
+<div id="editEvent">
+	<button id="exitEdit" onclick="exitEdit(this)">x</button>
+	<form action="#" method="post">
+		<label>Event Name:</label>
+		<input type="text" name="eventName" placeholder="Event Name" required>
+		<label>Lecturer:</label>
+		<input type="text" name="lecturer" placeholder="Name Surname" required>
+		<label>Campus:</label>
+		<input type="text" name="campus" placeholder="Choose Campus" required>
+		<label>Date:</label>
+		<input type="date" name="date" required>
+		<label>Time:</label>
+		<input type="time" name="time" required>
+		<label>Room:</label>
+		<input type="text" name="room" placeholder="Choose Room" required>
+		<label>Description:</label>
+		<textarea name="description" placeholder="Description" rows="3" required></textarea>
+		<div><button type="submit">Save</button></div>
+	</form>
+</div>
+<div id="deleteEvent">
+	<p>Do you really want to delete this event?</p>
+	<button onclick="exitDelete(this)">Yes</button>
+	<button onclick="exitDelete(this)">No</button>
+</div>
 <script th:src="@{/js/script.js}"></script>
 </body>
 </html>

@@ -4,14 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--    <link rel="icon" type="icon/png" th:href="@{../images/.png}">-->
+    <link rel="icon" type="icon/png" th:href="@{/images/background.png}">
     <meta name="keywords" content="event, event management, Universum, Universum College">
     <meta name="description" content="This is a event management system where you can see all events occurring in Universum College">
     <title>Event Management</title>
-    <base href="/">
     <link rel="stylesheet" type="text/css" th:href="@{/styles/style.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/styles/responsive.css}">
-    <security:intercept-url pattern="/resources/**" access="permitAll" />
 
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
 </head>
@@ -23,14 +21,14 @@
             <p>Welcome</p>
         </div>
         <form th:action="@{/login}" method="post">
-            <label>Email:</label>
+            <label>Username:</label>
             <input type="username" name="username" placeholder="Username" required>
             <label>Password:</label>
             <input type="password" name="password" placeholder="type password" pattern=".{4,}" title="password should be at least 8 character long" required>
             <button type="submit">Login</button>
         </form>
         <div id="guest">
-            <a th:href="events.html"><p>Continue as guest</p></a>
+            <a th:href="@{signup_form}"><p>Register</p></a>
         </div>
     </div>
     <!-- <i class="fas fa-hexagon"></i> -->

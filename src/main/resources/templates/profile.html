@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="icon/png" href="../static/images/background.png" th:href="@{/images/background.png}">
+  <meta name="keywords" content="event, event management, Universum, Universum College">
+  <meta name="description" content="This is a event management system where you can see all events occurring in Universum College">
+  <title>Event Management</title>
+  <link rel="stylesheet" type="text/css" href="../static/style.css" th:href="@{/styles/style.css}">
+  <link rel="stylesheet" type="text/css" href="../static/responsive.css" th:href="@{/styles/responsive.css}">
+  <link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+</head>
+<body onload="footer()" onresize="footer()" onkeydown="escFunc4()" ondblclick="toggle()">
+<div id="profile">
+  <div id="navbar">
+    <p>Event Management</p>
+    <div id="adminNav">
+      <a th:href="@{events}"><button style="color:#f22045;background:white;">Events</button></a>
+      <a th:href="@{lecturer}"><button sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Lecturers</button></a>
+      <a th:href="@{users}" ><button sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Users</button></a>
+      <div id="dropdown">
+        <button style="color:#f22045;background:white;">Profile</button>
+        <div id="droplist">
+          <!-- <a href="login.html"><button>Login</button></a>
+          <a href="#contact"><button>Contact us</button></a> -->
+          <a href="profile.html"><button>AdminName</button></a>
+          <a th:href="@{login}"><button>Log out</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="profileTitle"><p>Profile</p></div>
+  <div id="profileLine"></div>
+  <div id="profileInfo" th:each="">
+    <p>Id:</p> <p>1</p>
+    <p>Name:</p> <p>Name Surname</p>
+    <p>Email:</p> <p>Someone@domain.com</p>
+    <p>Status:</p> <p>Active</p>
+    <p>Role:</p> <p>Admin</p>
+    <button onclick="changePass()">Change Password</button>
+  </div>
+  <div id="footer">
+    <div id="contact"><p>Contact Us</p></div>
+    <div id="campus">
+      <div>
+        <p>Ferizaj</p>
+        <p><i class="fas fa-map-marker-alt"></i>Rrethi QMI, 14000 Lipjan, Kosovo</p>
+        <p><i class="fas fa-phone"></i><a href="tel:+383 44 725 675x">+383 44 725 675</a></p>
+        <p><i class="fas fa-envelope"></i><a href="mailto:administratafr@universum-ks.org">administratafr@universum-ks.org</a></p>
+      </div>
+      <div>
+        <p>Prishtinë</p>
+        <p><i class="fas fa-map-marker-alt"></i>Rr. Fan Noli, 70000 Ferizaj, Kosovo</p>
+        <p><i class="fas fa-phone"></i><a href="tel:+383 44 144 062x">+383 44 144 062</a></p>
+        <p><i class="fas fa-envelope"></i><a href="mailto:administratapr@universum-ks.org">administratapr@universum-ks.org</a></p>
+      </div>
+      <div>
+        <p>Gjakovë</p>
+        <p><i class="fas fa-map-marker-alt"></i>Rr. UÇK, 50000 Gjakova, Kosovo</p>
+        <p><i class="fas fa-phone"></i><a href="tel:+383 44 750 858x">+383 44 750 858</a></p>
+        <p><i class="fas fa-envelope"></i><a href="mailto:administratagjk@universum-ks.org">administratagjk@universum-ks.org</a></p>
+      </div>
+    </div>
+    <div id="copyright"><p>Copyright &copy; 2021, Universum College</p></div>
+  </div>
+</div>
+<div id="divBg4"></div>
+<div id="changePass">
+  <button id="exitPass" onclick="exitPass(this)">x</button>
+  <form action="#" method="post">
+    <label>Old Password:</label>
+    <input type="password" name="oldPass" placeholder="type Password" required>
+    <label>New Password:</label>
+    <input type="password" name="newPass" placeholder="type Password" required>
+    <div><button type="submit">Change</button></div>
+  </form>
+</div>
+<script src="../static/script.js" th:src="@{/js/script.js}"></script>
+</body>
+</html>

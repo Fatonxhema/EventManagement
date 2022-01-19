@@ -14,4 +14,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     @Query("SELECT e FROM event e WHERE e.date =:date")
     Event findByDate(Date date);
+    @Query("select e from  event  e where e.lecturer = :id")
+    Event findByEventId(long id);
 }

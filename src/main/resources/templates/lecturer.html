@@ -4,77 +4,114 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="icon/png" href="images/Picture6.png">
+	<link rel="icon" type="icon/png" href="../static/images/background.png" th:href="@{/images/background.png}">
 	<meta name="keywords" content="event, event management, Universum, Universum College">
 	<meta name="description" content="This is a event management system where you can see all events occurring in Universum College">
 	<title>Event Management</title>
-	<link th:href="@{../static/styles/style.css}" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" th:href="@{../static/styles/responsive.css}">
+	<link rel="stylesheet" type="text/css" href="../static/style.css" th:href="@{/styles/style.css}">
+	<link rel="stylesheet" type="text/css" href="../static/responsive.css" th:href="@{/styles/style.css}" >
 	<link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
 </head>
-<body onload="footer()" onresize="footer()">
-	<div id="lecturer">
-		<div id="navbar">
-			<p>Event Management</p>
+<body onload="footer()" onresize="footer()" onkeydown="escFunc2()" ondblclick="toggle()">
+<div id="lecturer" sec:authorize="isAuthenticated()">
+	<div id="navbar">
+		<p>Event Management</p>
+		<div id="adminNav">
+			<a th:href="@{events}"><button style="color:#f22045;background:white;">Events</button></a>
+			<a th:href="@{lecturer}"><button sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Lecturers</button></a>
+			<a th:href="@{users}" ><button sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Users</button></a>
 			<div id="dropdown">
 				<button>Profile</button>
 				<div id="droplist">
-					<a th:action="@{/logout}"><button>Log Out</button></a>
-					<a href="#contact"><button>Contact us</button></a>
+					<a href="profile.html" sec:authentication="name"><button>AdminName</button></a>
+					<a th:href="@{login}"><button>Log out</button></a>
 				</div>
 			</div>
-		</div>
-		<div id="lecturerTitle"><p>Lecturers</p></div>
-		<div id="lecturerLine"></div>
-		
-		<div id="lecturerList">
-			<div id="addToList">
-				<button id="addLecturer" ><i class="fas fa-plus"></i>Add</button>
-			</div>
-			<table>
-				<tr >
-					<th>ID</th>
-					<th>Name</th>
-					<th>Email</th>
-					<th>Phone</th>
-					<th sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">Actions</th>
-				</tr>
-				<tr th:each="lecture : ${listLecturer}">
-					<td th:text="${lecture.id}">1</td>
-					<td th:text="${lecture.name}">Name Surname</td>
-					<td th:text="${lecture.email}">Someone123@domain.com</td>
-					<td th:text="${lecture.phone_no}">+000 00 000 000</td>
-					<td><button><i class="fas fa-edit"></i>Edit</button>
-						<button><i class="fas fa-trash-alt"></i>Delete</button></td>
-				</tr>
-			</table>
-		</div>
-		<div id="footer">
-			<div id="contact"><p>Contact Us</p></div>
-			<div id="campus">
-				<div>
-					<p>Ferizaj</p>
-					<p><i class="fas fa-map-marker-alt"></i>Rrethi QMI, 14000 Lipjan, Kosovo</p>
-					<p><i class="fas fa-phone"></i><a href="tel:+383 44 725 675x">+383 44 725 675</a></p>
-					<p><i class="fas fa-envelope"></i><a href="mailto:administratafr@universum-ks.org">administratafr@universum-ks.org</a></p>
-				</div>
-				<div>
-					<p>Prishtinë</p>
-					<p><i class="fas fa-map-marker-alt"></i>Rr. Fan Noli, 70000 Ferizaj, Kosovo</p>
-					<p><i class="fas fa-phone"></i><a href="tel:+383 44 144 062x">+383 44 144 062</a></p>
-					<p><i class="fas fa-envelope"></i><a href="mailto:administratapr@universum-ks.org">administratapr@universum-ks.org</a></p>
-				</div>
-				<div>
-					<p>Gjakovë</p>
-					<p><i class="fas fa-map-marker-alt"></i>Rr. UÇK, 50000 Gjakova, Kosovo</p>
-					<p><i class="fas fa-phone"></i><a href="tel:+383 44 750 858x">+383 44 750 858</a></p>
-					<p><i class="fas fa-envelope"></i><a href="mailto:administratagjk@universum-ks.org">administratagjk@universum-ks.org</a></p>
-				</div>
-			</div>
-			<div id="copyright"><p>Copyright &copy; 2021, Universum College</p></div>
 		</div>
 	</div>
-	<script th:src="@{/script.js}"></script>
+	<div id="lecturerTitle"><p>Lecturers</p></div>
+	<div id="lecturerLine"></div>
+
+	<div id="lecturerList">
+		<div id="addToList">
+			<button onclick="actionsLecturer('add')"><i class="fas fa-plus"></i>Add</button>
+		</div>
+		<table th:each="lecturer :${listLecturer}" >
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Lastname</th>
+				<th>Email</th>
+				<th>Phone</th>
+				<th>Actions</th>
+			</tr>
+			<tr>
+				<td th:text="${lecturer.id}">1</td>
+				<td th:text="${lecturer.name}">Name Surname</td>
+				<td th:text="${lecturer.lastname}">Surname/td>
+				<td th:text="${lecturer.email}">Someone123@domain.com</td>
+				<td th:text="${lecturer.phone_no}">+000 00 000 000</td>
+				<td><button onclick="actionsLecturer('edit')"><i class="fas fa-edit"></i>Edit</button><button onclick="actionsLecturer('delete')"><i class="fas fa-trash-alt"></i>Delete</button></td>
+			</tr>
+
+		</table>
+	</div>
+	<div id="footer">
+		<div id="contact"><p>Contact Us</p></div>
+		<div id="campus">
+			<div>
+				<p>Ferizaj</p>
+				<p><i class="fas fa-map-marker-alt"></i>Rrethi QMI, 14000 Lipjan, Kosovo</p>
+				<p><i class="fas fa-phone"></i><a href="tel:+383 44 725 675x">+383 44 725 675</a></p>
+				<p><i class="fas fa-envelope"></i><a href="mailto:administratafr@universum-ks.org">administratafr@universum-ks.org</a></p>
+			</div>
+			<div>
+				<p>Prishtinë</p>
+				<p><i class="fas fa-map-marker-alt"></i>Rr. Fan Noli, 70000 Ferizaj, Kosovo</p>
+				<p><i class="fas fa-phone"></i><a href="tel:+383 44 144 062x">+383 44 144 062</a></p>
+				<p><i class="fas fa-envelope"></i><a href="mailto:administratapr@universum-ks.org">administratapr@universum-ks.org</a></p>
+			</div>
+			<div>
+				<p>Gjakovë</p>
+				<p><i class="fas fa-map-marker-alt"></i>Rr. UÇK, 50000 Gjakova, Kosovo</p>
+				<p><i class="fas fa-phone"></i><a href="tel:+383 44 750 858x">+383 44 750 858</a></p>
+				<p><i class="fas fa-envelope"></i><a href="mailto:administratagjk@universum-ks.org">administratagjk@universum-ks.org</a></p>
+			</div>
+		</div>
+		<div id="copyright"><p>Copyright &copy; 2021, Universum College</p></div>
+	</div>
+</div>
+<div id="divBg2"></div>
+<div id="addLecturer">
+	<button id="exitAdd2" onclick="exitActions('add')">x</button>
+	<form action="#" method="post">
+		<label>Name:</label>
+		<input type="text" name="lecturerName" placeholder="Lecturer Name" required>
+		<label>Email:</label>
+		<input type="email" name="lecturerEmail" placeholder="example@domain.com" required>
+		<label>Phone:</label>
+		<input type="text" name="lecturerPhone" placeholder="+000 00 000 000" required>
+		<div><button type="submit">Add</button></div>
+	</form>
+</div>
+<div id="editLecturer">
+	<button id="exitEdit2" onclick="exitActions('edit')">x</button>
+	<form action="#" method="post">
+		<label>Name:</label>
+		<input type="text" name="lecturerName" placeholder="Lecturer Name" required>
+		<label>Email:</label>
+		<input type="email" name="lecturerEmail" placeholder="example@domain.com" required>
+		<label>Phone:</label>
+		<input type="text" name="lecturerPhone" placeholder="+000 00 000 000" required>
+		<div><button type="submit">Save</button></div>
+	</form>
+</div>
+<div id="deleteLecturer">
+	<p>Do you really want to delete this lecturer?</p>
+	<button onclick="exitActions('delete')">Yes</button>
+	<button onclick="exitActions('delete')">No</button>
+</div>
+<script src="../static/script.js" th:src="@{/js/script.js}"></script>
 </body>
 </html>

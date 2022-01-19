@@ -13,7 +13,7 @@ import java.util.Set;
 @Data
 public class Event {
 
-    @Id
+    @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "event_name")
@@ -33,7 +33,7 @@ public class Event {
     @Column(name = "event_date")
     @NotEmpty(message = "Please enter the date of the event")
     private Date date;
-    @Column(name = "time")
+    @Column(name = "event_time")
     @NotEmpty(message = "Please enter the time of the event")
     private String time;
     @OneToMany(cascade = CascadeType.ALL)

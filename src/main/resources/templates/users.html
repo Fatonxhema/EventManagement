@@ -1,37 +1,141 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <meta charset="ISO-8859-1">
-    <title>List Users</title>
-    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
-    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="icon/png" href="../static/images/background.png" th:href="@{/images/background.png}">
+    <meta name="keywords" content="event, event management, Universum, Universum College">
+    <meta name="description" content="This is a event management system where you can see all events occurring in Universum College">
+    <title>Event Management</title>
+    <link rel="stylesheet" type="text/css" href="../static/style.css" th:href="@{/styles/style.css}">
+    <link rel="stylesheet" type="text/css" href="../static/responsive.css" th:href="@{/styles/responsive.css}">
+    <link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
 </head>
-<body>
-<div class="container text-center">
-
-    <div>
-        <h1>List of Users</h1>
+<body onload="footer()" onresize="footer()" onkeydown="escFunc2()" ondblclick="toggle()">
+<div id="user" sec:authorize="isAuthenticated()">
+    <div id="navbar">
+        <p>Event Management</p>
+        <div id="adminNav">
+            <a th:href="@{/}"><button>Events</button></a>
+            <a th:href="@{/lecturer}"><button>Lecturers</button></a>
+            <a th:href="@{/users}"><button style="color:#f22045;background:white;">Users</button></a>
+            <div id="dropdown">
+                <button>Profile</button>
+                <div id="droplist">
+                    <a th:href="@{/profile}" sec:authentication="name"><button>AdminName</button></a>
+                    <a th:action="@{/logout}" method="post"><button>Log out</button></a>
+                </div>
+            </div>
+        </div>
     </div>
+    <div id="userTitle"><p>Users</p></div>
+    <div id="userLine"></div>
 
-    <div>
-        <table class="table table-striped table-bordered">
-            <thead class="thead-dark">
+    <div id="userList">
+        <div id="addToList">
+            <button onclick="actionsUser('add')"><i class="fas fa-plus"></i>Add</button>
+        </div>
+        <table th:each="user : ${listUsers}">
             <tr>
-                <th>User ID</th>
-                <th>E-mail</th>
-                <th>First Name</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Role</th>
+                <th>Actions</th>
             </tr>
-            </thead>
-            <tbody>
-            <tr th:each="user: ${listUsers}">
-                <td th:text="${user.id}">User ID</td>
-                <td th:text="${user.username}">First Name</td>
-                <td th:text="${user.roles}">E-mail</td>
+            <tr>
+                <td th:text="${user.id}">1</td>
+                <td th:text="${user.name}">Name Surname</td>
+                <td th:text="${user.lastname}">Lastname</td>
+                <td th:text="${user.email}">Someone123@domain.com</td>
+                <td sec:authentication="principal.authorities">Admin</td>
+                <td><button onclick="actionsUser('edit')"><i class="fas fa-edit"></i>Edit</button><button onclick="actionsUser('delete')"><i class="fas fa-trash-alt"></i>Delete</button></td>
             </tr>
-            </tbody>
         </table>
+        </div>
+    <div id="footer">
+        <div id="contact"><p>Contact Us</p></div>
+        <div id="campus">
+            <div>
+                <p>Ferizaj</p>
+                <p><i class="fas fa-map-marker-alt"></i>Rrethi QMI, 14000 Lipjan, Kosovo</p>
+                <p><i class="fas fa-phone"></i><a href="tel:+383 44 725 675x">+383 44 725 675</a></p>
+                <p><i class="fas fa-envelope"></i><a href="mailto:administratafr@universum-ks.org">administratafr@universum-ks.org</a></p>
+            </div>
+            <div>
+                <p>Prishtinë</p>
+                <p><i class="fas fa-map-marker-alt"></i>Rr. Fan Noli, 70000 Ferizaj, Kosovo</p>
+                <p><i class="fas fa-phone"></i><a href="tel:+383 44 144 062x">+383 44 144 062</a></p>
+                <p><i class="fas fa-envelope"></i><a href="mailto:administratapr@universum-ks.org">administratapr@universum-ks.org</a></p>
+            </div>
+            <div>
+                <p>Gjakovë</p>
+                <p><i class="fas fa-map-marker-alt"></i>Rr. UÇK, 50000 Gjakova, Kosovo</p>
+                <p><i class="fas fa-phone"></i><a href="tel:+383 44 750 858x">+383 44 750 858</a></p>
+                <p><i class="fas fa-envelope"></i><a href="mailto:administratagjk@universum-ks.org">administratagjk@universum-ks.org</a></p>
+            </div>
+        </div>
+        <div id="copyright"><p>Copyright &copy; 2021, Universum College</p></div>
     </div>
 </div>
+
+<div id="divBg3"></div>
+<div id="addUser">
+    <button id="exitAdd3" onclick="exitActions2('add')">x</button>
+    <form action="#" method="post">
+        <label>Name:</label>
+        <input type="text" name="lecturerName" placeholder="Lecturer Name" required>
+        <label>Email:</label>
+        <input type="email" name="lecturerEmail" placeholder="example@domain.com" required>
+        <label>Status:</label>
+        <span>
+				<input type="radio" name="userStatus" value="Active" required>
+				<label>Active</label>
+				<input type="radio" name="userStatus" value="inActive" required>
+				<label>inActive</label>
+			</span>
+        <br><label>Role:</label>
+        <span>
+				<input type="radio" name="userRole" value="Admin" required>
+				<label>Admin</label>
+				<input type="radio" name="userRole" value="User" required>
+				<label>User</label>
+			</span>
+        <div><button type="submit">Add</button></div>
+    </form>
+</div>
+<div id="editUser">
+    <button id="exitEdit3" onclick="exitActions2('edit')">x</button>
+    <form action="#" method="post">
+        <label>Name:</label>
+        <input type="text" name="lecturerName" placeholder="Lecturer Name" required>
+        <label>Email:</label>
+        <input type="email" name="lecturerEmail" placeholder="example@domain.com" required>
+        <label>Status:</label>
+        <span>
+				<input type="radio" name="userStatus" value="Active" required>
+				<label>Active</label>
+				<input type="radio" name="userStatus" value="inActive" required>
+				<label>inActive</label>
+			</span>
+        <br><label>Role:</label>
+        <span>
+				<input type="radio" name="userRole" value="Admin" required>
+				<label>Admin</label>
+				<input type="radio" name="userRole" value="User" required>
+				<label>User</label>
+			</span>
+        <div><button type="submit">Save</button></div>
+    </form>
+</div>
+<div id="deleteUser">
+    <p>Do you really want to delete this user?</p>
+    <button onclick="exitActions2('delete')">Yes</button>
+    <button onclick="exitActions2('delete')">No</button>
+</div>
+<script src="../static/script.js" th:src="@{/js/script.js}"></script>
 </body>
 </html>
