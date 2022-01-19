@@ -52,7 +52,9 @@
 				<td th:text="${lecturer.lastname}">Surname/td>
 				<td th:text="${lecturer.email}">Someone123@domain.com</td>
 				<td th:text="${lecturer.phone_no}">+000 00 000 000</td>
-				<td><button onclick="actionsLecturer('edit')"><i class="fas fa-edit"></i>Edit</button><button onclick="actionsLecturer('delete')"><i class="fas fa-trash-alt"></i>Delete</button></td>
+				<td sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
+				<button onclick="actionsLecturer('edit')" th:href="@{/getIdLecturer/(id=${lecturer.id})}"><i class="fas fa-edit"></i>Edit</button>
+				<button onclick="actionsLecturer('delete')" sec:authorize="hasAuthority('ADMIN')" th:href="@{'/delete/' + ${lecturer.id}}"><i class="fas fa-trash-alt"></i>Delete</button></td>
 			</tr>
 
 		</table>

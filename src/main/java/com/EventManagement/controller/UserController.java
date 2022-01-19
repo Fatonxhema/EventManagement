@@ -1,7 +1,9 @@
 package com.EventManagement.controller;
 
 
+import com.EventManagement.model.Role;
 import com.EventManagement.model.User;
+import com.EventManagement.repository.RoleRepository;
 import com.EventManagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -18,6 +22,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleRepository repo;
 
     @RequestMapping("/profile")
     public String profile(){
@@ -45,13 +51,15 @@ public class UserController {
     }
     @PostMapping("/process_register")
     public String processRegister(User user) {
+        Role userRole = repo.findByName("USER");
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-
+        user.setEnabled(true);
+        user.setRoles(List.of(userRole));
         userService.saveUser(user);
 
-        return "register_success";
+        return "login";
     }
 }
 

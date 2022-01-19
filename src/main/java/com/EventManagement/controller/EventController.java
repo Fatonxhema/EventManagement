@@ -36,6 +36,7 @@ public class EventController {
     }
     @RequestMapping(value = "/saveEvent", method = RequestMethod.POST)
     public String saveEvent( Event event){
+
         eventService.createEvent(event);
         return "redirect:/";
     }

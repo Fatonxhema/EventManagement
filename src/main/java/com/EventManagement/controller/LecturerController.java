@@ -39,7 +39,7 @@ public class LecturerController {
         return "redirect:/";
     }
 
-    @GetMapping("/getIdProduct")
+    @GetMapping("/getIdLecturer")
     @ResponseBody
     public Optional<Lecturer> getId(long id){
         Optional<Lecturer> lecture = lecturerService.findLecturerById(id);

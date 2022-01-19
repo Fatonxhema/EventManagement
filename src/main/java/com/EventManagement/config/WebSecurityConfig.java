@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 @Configuration
@@ -49,12 +50,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/edit/**").hasAnyAuthority("ADMIN", "EDITOR")
 			.antMatchers("/delete/**").hasAuthority("ADMIN")
 			.antMatchers("/styles/**", "/js/**", "/images/**").permitAll()
-			.antMatchers("/login", "/register").permitAll()
+			.antMatchers("/login", "/register","/process_register").permitAll()
 			.anyRequest().authenticated()
 			.and()
-			.formLogin().loginPage("/login").permitAll()
+			.formLogin().loginPage("/login").failureUrl("/login?error").permitAll()
 			.and()
-			.logout().logoutSuccessUrl("/register").permitAll()
+			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").permitAll()
 			.and()
 			.exceptionHandling().accessDeniedPage("/403");
 	}

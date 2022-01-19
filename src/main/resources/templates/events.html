@@ -18,9 +18,9 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	<div id="navbar">
 		<p>Event Management</p>
 		<div id="adminNav">
-			<a th:href="@{events}"><button style="color:#f22045;background:white;">Events</button></a>
 			<a th:href="@{lecturer}"><button sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Lecturers</button></a>
 			<a th:href="@{users}" ><button sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Users</button></a>
+			<a th:href="@{events}"><button style="color:#f22045;background:white;">Events</button></a>
 			<div id="dropdown">
 				<button th:href="profile">Profile</button>
 				<div id="droplist">
@@ -36,7 +36,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	<div id="eventTitle"><p>Events</p></div>
 	<div id="eventLine"></div>
 	<div id="filter">
-		<button id="addEventBtn" onclick="addEvent()">Add Event</button>
+		<button id="addEventBtn" onclick="addEvent()" sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Add Event</button>
 		<div id="dropdown2">
 			<button><i class="fas fa-filter"></i>Filter</button>
 			<div id="droplist2">
@@ -69,9 +69,9 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 					<p>Room:</p> <p th:text="${event.room}">000</p>
 					<p>Description:</p> <p th:text="${event.description}">Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
 				</div>
-				<div id="adminBtn11">
-					<button onclick="editEvent(this)"><i class="fas fa-edit"></i></button>
-					<button onclick="deleteEvent(this)"><i class="fas fa-trash-alt"></i></button>
+				<div id="adminBtn11" sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
+					<button onclick="editEvent(this)" th:href="@{/getIdEvent/(id=${event.id})}"><i class="fas fa-edit"></i></button>
+					<button onclick="deleteEvent(this)"sec:authorize="hasAuthority('ADMIN')" th:href="@{'/delete/' + ${event.id}}"><i class="fas fa-trash-alt"></i></button>
 				</div>
 				<button id="close11" onclick="closeCard(this)">x</button>
 			</div>
@@ -124,41 +124,41 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	</div>
 </div>
 <div id="divBg"></div>
-<!--<div id="addEvent">-->
-<!--	<button id="exitAdd" onclick="exitAdd(this)">x</button>-->
-<!--	<form th:action="@/saveEvent}" method="post">-->
-<!--		<label>Event Name:</label>-->
-<!--		<input type="text" name="name" placeholder="Event Name" required th:field="*{event.name}">-->
-<!--		<label>Lecturer:</label>-->
-<!--		<input type="text" name="lecturer" placeholder="Name Surname" required th:field="*{event.lecturer}">-->
-<!--		<label>Campus:</label>-->
-<!--		<input type="text" name="location" placeholder="Choose Campus" required th:field="*{event.location}">-->
-<!--		<label>Date:</label>-->
-<!--		<input type="date" name="date" required th:field="*{event.date}">-->
-<!--		<label>Time:</label>-->
-<!--		<input type="time" name="time" required th:field="*{event.time}">-->
-<!--		<label>Room:</label>-->
-<!--		<input type="text" name="room" placeholder="Choose Room" required th:field="*{event.room}">-->
-<!--		<label>Description:</label>-->
-<!--		<textarea name="description" placeholder="Description" rows="4" required th:field="*{event.description}"></textarea>-->
-<!--		<div><button type="submit">Add</button></div>-->
-<!--	</form>-->
-<!--</div>-->
+<div id="addEvent">
+	<button id="exitAdd" onclick="exitAdd(this)">x</button>
+	<form th:action="@{/saveEvent}" method="post">
+		<label>Event Name:</label>
+		<input type="text" name="name" placeholder="Event Name" required >
+		<label>Lecturer:</label>
+		<input type="text" name="lecturer" placeholder="Name Surname" required >
+		<label>Campus:</label>
+		<input type="text" name="location" placeholder="Choose Campus" required >
+		<label>Date:</label>
+		<input type="date" name="date" required >
+		<label>Time:</label>
+		<input type="time" name="time" required >
+		<label>Room:</label>
+		<input type="text" name="room" placeholder="Choose Room" required >
+		<label>Description:</label>
+		<textarea name="description" placeholder="Description" rows="4" required></textarea>
+		<div><button type="submit">Save</button></div>
+	</form>
+</div>
 <div id="editEvent">
 	<button id="exitEdit" onclick="exitEdit(this)">x</button>
-	<form action="#" method="post">
+	<form th:action="@{/updateEvent}" method="post">
 		<label>Event Name:</label>
-		<input type="text" name="eventName" placeholder="Event Name" required>
+		<input type="text" id="NameEdit" name="name" placeholder="Event Name" required>
 		<label>Lecturer:</label>
-		<input type="text" name="lecturer" placeholder="Name Surname" required>
+		<input type="text" name="LecturerEdit" placeholder="Name Surname" required>
 		<label>Campus:</label>
-		<input type="text" name="campus" placeholder="Choose Campus" required>
+		<input type="text" name="CampusEdit" placeholder="Choose Campus" required>
 		<label>Date:</label>
-		<input type="date" name="date" required>
+		<input type="date" name="DateEdit" required>
 		<label>Time:</label>
-		<input type="time" name="time" required>
+		<input type="time" name="TimeEdit" required>
 		<label>Room:</label>
-		<input type="text" name="room" placeholder="Choose Room" required>
+		<input type="text" name="RoomEdit" placeholder="Choose Room" required>
 		<label>Description:</label>
 		<textarea name="description" placeholder="Description" rows="3" required></textarea>
 		<div><button type="submit">Save</button></div>
