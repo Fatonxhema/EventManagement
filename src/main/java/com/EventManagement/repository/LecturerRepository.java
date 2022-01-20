@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface LecturerRepository extends JpaRepository<Lecturer, Long> {
     @Query("SELECT l FROM Lecturer l WHERE l.name =:name ")
     Lecturer findByName(String name);
+    @Query("select l from  Lecturer l where l.id =:id")
+    Lecturer findLecturerById(long id);
 }

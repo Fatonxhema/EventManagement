@@ -37,7 +37,7 @@
 		<div id="addToList">
 			<button onclick="actionsLecturer('add')"><i class="fas fa-plus"></i>Add</button>
 		</div>
-		<table th:each="lecturer :${listLecturer}" >
+		<table  >
 			<tr>
 				<th>ID</th>
 				<th>Name</th>
@@ -46,7 +46,7 @@
 				<th>Phone</th>
 				<th>Actions</th>
 			</tr>
-			<tr>
+			<tr th:each="lecturer :${listLecturer}">
 				<td th:text="${lecturer.id}">1</td>
 				<td th:text="${lecturer.name}">Name Surname</td>
 				<td th:text="${lecturer.lastname}">Surname/td>

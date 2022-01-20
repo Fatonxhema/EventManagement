@@ -37,7 +37,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
         <div id="addToList">
             <button onclick="actionsUser('add')"><i class="fas fa-plus"></i>Add</button>
         </div>
-        <table th:each="user : ${listUsers}">
+        <table >
             <tr>
                 <th>ID</th>
                 <th>Name</th>
@@ -46,7 +46,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
                 <th>Role</th>
                 <th>Actions</th>
             </tr>
-            <tr>
+            <tr th:each="user : ${listUsers}">
                 <td th:text="${user.id}">1</td>
                 <td th:text="${user.name}">Name Surname</td>
                 <td th:text="${user.lastname}">Lastname</td>
