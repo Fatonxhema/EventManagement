@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Table(name = "lecturer")
 @Data
-public class Lecturer {
+public class Lecturer extends Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

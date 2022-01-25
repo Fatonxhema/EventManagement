@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "users")
 @Data
-public class User {
+public class User extends Role {
 
     @Id
     @Column(name = "user_id")

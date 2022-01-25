@@ -33,8 +33,8 @@
   </div>
   <div id="profileTitle"><p>Profile</p></div>
   <div id="profileLine"></div>
-  <div id="profileInfo" th:each="">
-    <p>Id:</p> <p>1</p>
+  <div id="profileInfo" th:object="${user}>
+    <p>Id:</p> <p th:text="${name}">1</p>
     <p>Name:</p> <p>Name Surname</p>
     <p>Email:</p> <p>Someone@domain.com</p>
     <p>Status:</p> <p>Active</p>

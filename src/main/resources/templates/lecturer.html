@@ -18,8 +18,8 @@
 	<div id="navbar">
 		<p>Event Management</p>
 		<div id="adminNav">
-			<a th:href="@{events}"><button style="color:#f22045;background:white;">Events</button></a>
-			<a th:href="@{lecturer}"><button sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Lecturers</button></a>
+			<a th:href="@{events}"><button sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Events</button></a>
+			<a th:href="@{lecturer}"><button style="color:#f22045;background:white;" sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Lecturers</button></a>
 			<a th:href="@{users}" ><button sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Users</button></a>
 			<div id="dropdown">
 				<button>Profile</button>
