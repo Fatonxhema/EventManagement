@@ -42,7 +42,7 @@ public class EventController {
     }
 
     @RequestMapping(value = "/updateEvent", method = {RequestMethod.PUT, RequestMethod.GET})
-    public String update(Event event){
+    public String update(@RequestParam("event") Event event){
         eventService.createEvent(event);
         return "redirect:/";
     }

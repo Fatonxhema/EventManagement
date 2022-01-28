@@ -20,7 +20,7 @@ public class Role {
     @Id
     @Column(name = "role_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @NotEmpty(message = "Please enter name of the role")
     @NotNull
     private String name;

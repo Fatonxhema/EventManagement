@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class UserController {
@@ -56,7 +57,7 @@ public class UserController {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         user.setEnabled(true);
-        user.setRoles(List.of(userRole));
+        user.setRoles(Set.of(userRole));
         userService.saveUser(user);
 
         return "login";

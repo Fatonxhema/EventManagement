@@ -1,6 +1,7 @@
 package com.EventManagement.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,8 +31,7 @@ public class Event {
     @Column(name = "event_room")
     @NotEmpty(message = "Please enter the rom of the event")
     private String room;
-    @Column(name = "event_date")
-    @NotEmpty(message = "Please enter the date of the event")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy, timezone = UTC")
     private Date date;
     @Column(name = "event_time")
     @NotEmpty(message = "Please enter the time of the event")
