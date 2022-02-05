@@ -12,11 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.security.Principal;
+import java.util.*;
 
 @Controller
 public class UserController {
@@ -26,25 +25,31 @@ public class UserController {
     @Autowired
     private RoleRepository repo;
 
-    @RequestMapping("/profile")
-    public String profile(){
-        return "profile";
+    @GetMapping("/login")
+    public String showLoginPage(){
+        return "login";
     }
 
-//    @RequestMapping("/register")
-//    public String registerform() {
-//        return "signup_form";
-//    }
+    @RequestMapping("/profile")
+    public String profile(Model model, Principal principal){
+        String name = principal.getName();
+        model.addAttribute("user",userService.findByName(name));
+        return "profile";
+    }
 
     @GetMapping("/users")
     public String listUsers(Model model) {
      List<User> listUsers = userService.findAllUsers();
      model.addAttribute("listUsers", listUsers);
-
      return "users";
 }
+    @RequestMapping(value = "/saveUser", method = RequestMethod.POST)
+    public String saveUser(User user) {
+        userService.saveUser(user);
+        return "redirect:/";
 
-    @RequestMapping("/register")
+    }
+        @RequestMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new User());
 
@@ -57,10 +62,21 @@ public class UserController {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         user.setEnabled(true);
-        user.setRoles(Set.of(userRole));
+        user.setRoles((Set<Role>) userRole);
         userService.saveUser(user);
-
         return "login";
+    }
+
+    @PostMapping("/processRegisterAdmin")
+    public String processRegisterAdmin(User user) {
+        Role userRole = repo.findByName("ADMIN");
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        user.setEnabled(true);
+        user.setRoles((Set<Role>) userRole);
+        userService.saveUser(user);
+        return "users";
     }
 }
 

@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Null;
 
 @Entity
 @Table(name = "lecturer")
@@ -23,12 +24,12 @@ public class Lecturer {
     private String email;
     @Column
     @NotEmpty(message = "Please enter phone number")
-    private long phone_no;
+    private String phone_no;
     @Column
-    @NotEmpty(message = "Please enter address")
+//    @NotEmpty(message = "Please enter address")
     private String address;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "event_id", nullable = false)
+    @JoinColumn(name = "event_id")
     private Event event;
 
     @Override

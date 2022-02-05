@@ -1,6 +1,7 @@
 package com.EventManagement.controller;
 
 import com.EventManagement.model.Lecturer;
+import com.EventManagement.repository.LecturerRepository;
 import com.EventManagement.service.LecturerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,8 @@ public class LecturerController {
 
     @Autowired
     private LecturerService lecturerService;
+    @Autowired
+    private LecturerRepository repo;
 
     @GetMapping("/lecturer")
     public String getAllLecturer(Model model){
@@ -31,12 +34,12 @@ public class LecturerController {
     @RequestMapping(value = "/saveLecturer", method = RequestMethod.POST)
     public String saveLecturer(Lecturer Lecturer) {
         lecturerService.saveLecturer(Lecturer);
-        return "redirect:/";
+        return "redirect:/lecturer";
     }
     @RequestMapping(value = "/updateLecturer", method = {RequestMethod.PUT, RequestMethod.GET})
     public String updateLecturer(Lecturer lecturer){
         lecturerService.saveLecturer(lecturer);
-        return "redirect:/";
+        return "redirect:/lecturer";
     }
 
     @GetMapping("/getIdLecturer")
@@ -46,8 +49,10 @@ public class LecturerController {
         return lecture;
     }
     @RequestMapping("/deleteLecturer/{id}")
-    public String deleteLecturer(@PathVariable(name ="id") long id){
-        lecturerService.deleteLecturerById(id);
+    public String deleteLecturer(@PathVariable(name ="id") long id ,Model model){
+        Lecturer lecturer = lecturerService.findLecturerById(id)
+                .orElseThrow(()-> new IllegalArgumentException("Ivalid Lecturer id:" + id));
+        repo.delete(lecturer);
         return "redirect:/";
     }
 

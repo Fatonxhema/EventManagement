@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.support.JpaRepositoryImplementati
 
 public interface RoleRepository extends JpaRepositoryImplementation<Role,Long> {
     @Query("select r from Role r where r.name = :name")
-    public Role findByName(String name);
+    Role findByName(String name);
 }

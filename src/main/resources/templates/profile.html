@@ -17,28 +17,28 @@
   <div id="navbar">
     <p>Event Management</p>
     <div id="adminNav">
-      <a th:href="@{events}"><button style="color:#f22045;background:white;">Events</button></a>
-      <a th:href="@{lecturer}"><button sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Lecturers</button></a>
-      <a th:href="@{users}" ><button sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Users</button></a>
+      <a th:href="@{/}"><button style="color:#f22045;background:white;">Events</button></a>
+      <a th:href="@{/lecturer}"><button sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Lecturers</button></a>
+      <a th:href="@{/users}" ><button sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Users</button></a>
       <div id="dropdown">
         <button style="color:#f22045;background:white;">Profile</button>
         <div id="droplist">
           <!-- <a href="login.html"><button>Login</button></a>
           <a href="#contact"><button>Contact us</button></a> -->
-          <a href="profile.html"><button>AdminName</button></a>
-          <a th:href="@{login}"><button>Log out</button></a>
+          <a th:href="@{/profile}"><button >AdminName</button></a>
+          <a th:href="@{/login}"><button>Log out</button></a>
         </div>
       </div>
     </div>
   </div>
   <div id="profileTitle"><p>Profile</p></div>
   <div id="profileLine"></div>
-  <div id="profileInfo" th:object="${user}>
-    <p>Id:</p> <p th:text="${name}">1</p>
-    <p>Name:</p> <p>Name Surname</p>
-    <p>Email:</p> <p>Someone@domain.com</p>
-    <p>Status:</p> <p>Active</p>
-    <p>Role:</p> <p>Admin</p>
+  <div id="profileInfo" th:href="@{/profile}">
+    <p>Id:</p> <p th:text="${user.id}">1</p>
+    <p>Name:</p> <p th:text="${user.name}" >Name Surname</p>
+    <p>Email:</p> <p th:text="${user.email}" >Someone@domain.com</p>
+    <p>Status:</p> <p th:text="${user.enabled}">Active</p>
+    <p>Role:</p> <p th:text="${user.roles}">Admin</p>
     <button onclick="changePass()">Change Password</button>
   </div>
   <div id="footer">

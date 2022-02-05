@@ -18,14 +18,14 @@
 	<div id="navbar">
 		<p>Event Management</p>
 		<div id="adminNav">
-			<a th:href="@{events}"><button sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Events</button></a>
-			<a th:href="@{lecturer}"><button style="color:#f22045;background:white;" sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Lecturers</button></a>
-			<a th:href="@{users}" ><button sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Users</button></a>
+			<a th:href="@{/}"><button sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Events</button></a>
+			<a th:href="@{/lecturer}"><button style="color:#f22045;background:white;" sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Lecturers</button></a>
+			<a th:href="@{/users}" ><button sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Users</button></a>
 			<div id="dropdown">
 				<button>Profile</button>
 				<div id="droplist">
-					<a href="profile.html" sec:authentication="name"><button>AdminName</button></a>
-					<a th:href="@{login}"><button>Log out</button></a>
+					<a th:href="@{/profile}" ><button >AdminName</button></a>
+					<a th:href="@{/login}"><button>Log out</button></a>
 				</div>
 			</div>
 		</div>
@@ -35,7 +35,7 @@
 
 	<div id="lecturerList">
 		<div id="addToList">
-			<button onclick="actionsLecturer('add')"><i class="fas fa-plus"></i>Add</button>
+			<button onclick="actionsLecturer('add')" sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')"><i class="fas fa-plus"></i>Add</button>
 		</div>
 		<table  >
 			<tr>
@@ -54,7 +54,8 @@
 				<td th:text="${lecturer.phone_no}">+000 00 000 000</td>
 				<td sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
 				<button onclick="actionsLecturer('edit')" th:href="@{/getIdLecturer/(id=${lecturer.id})}"><i class="fas fa-edit"></i>Edit</button>
-				<button onclick="actionsLecturer('delete')" sec:authorize="hasAuthority('ADMIN')" th:href="@{'/delete/' + ${lecturer.id}}"><i class="fas fa-trash-alt"></i>Delete</button></td>
+				<button onclick="actionsLecturer('delete')" sec:authorize="hasAuthority('ADMIN')" th:href="@{'/deleteLecturer/'+${lecturer.id}}"><i class="fas fa-trash-alt"></i>Delete</button>
+				</td>
 			</tr>
 
 		</table>
@@ -87,31 +88,35 @@
 <div id="divBg2"></div>
 <div id="addLecturer">
 	<button id="exitAdd2" onclick="exitActions('add')">x</button>
-	<form action="#" method="post">
+	<form action="#" method="post" th:action="@{saveLecturer}" th:method="post">
 		<label>Name:</label>
-		<input type="text" name="lecturerName" placeholder="Lecturer Name" required>
+		<input type="text" name="name" placeholder="Lecturer Name" required>
+		<label>LastName:</label>
+		<input type="text" name="lastname" placeholder="Lecturer LastName" required>
 		<label>Email:</label>
-		<input type="email" name="lecturerEmail" placeholder="example@domain.com" required>
+		<input type="email" name="email" placeholder="example@domain.com" required>
 		<label>Phone:</label>
-		<input type="text" name="lecturerPhone" placeholder="+000 00 000 000" required>
-		<div><button type="submit">Add</button></div>
+		<input type="text" name="phone_no" placeholder="+000 00 000 000" required>
+		<div><button type="submit">Save</button></div>
 	</form>
 </div>
 <div id="editLecturer">
 	<button id="exitEdit2" onclick="exitActions('edit')">x</button>
-	<form action="#" method="post">
+	<form action="#" method="put" th:action="@{/updateLecturer}">
 		<label>Name:</label>
-		<input type="text" name="lecturerName" placeholder="Lecturer Name" required>
+		<input type="text" name="name" placeholder="Lecturer Name" required>
+		<label>LastName:</label>
+		<input type="text" name="lastname" placeholder="Lecturer Name" required>
 		<label>Email:</label>
-		<input type="email" name="lecturerEmail" placeholder="example@domain.com" required>
+		<input type="email" name="email" placeholder="example@domain.com" required>
 		<label>Phone:</label>
-		<input type="text" name="lecturerPhone" placeholder="+000 00 000 000" required>
+		<input type="text" name="phone_no" placeholder="+000 00 000 000" required>
 		<div><button type="submit">Save</button></div>
 	</form>
 </div>
 <div id="deleteLecturer">
 	<p>Do you really want to delete this lecturer?</p>
-	<button onclick="exitActions('delete')">Yes</button>
+	<button onclick="exitActions('delete')" th:action="@{/deleteLecturer/{id}}">Yes</button>
 	<button onclick="exitActions('delete')">No</button>
 </div>
 <script src="../static/script.js" th:src="@{/js/script.js}"></script>

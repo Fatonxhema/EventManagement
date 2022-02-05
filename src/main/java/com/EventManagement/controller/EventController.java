@@ -1,7 +1,10 @@
 package com.EventManagement.controller;
 
 import com.EventManagement.model.Event;
+import com.EventManagement.model.Lecturer;
+import com.EventManagement.repository.EventRepository;
 import com.EventManagement.service.EventService;
+import com.EventManagement.service.LecturerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +17,12 @@ public class EventController {
 
     @Autowired
     private EventService eventService;
+    @Autowired
+    private EventRepository eventRepository;
+    @Autowired
+    public LecturerService lecturerService;
 
-    @GetMapping("/login")
-    public String showLoginPage(){
-        return "login";
-    }
+
 
     @RequestMapping("/")
     public String viewHomePage(Model model) {
@@ -35,14 +39,14 @@ public class EventController {
         return "new_event";
     }
     @RequestMapping(value = "/saveEvent", method = RequestMethod.POST)
-    public String saveEvent( Event event){
-
+    public String saveEvent( Event event,Model model){
+        model.addAttribute("ListLectur", lecturerService.findAllLecturer());
         eventService.createEvent(event);
         return "redirect:/";
     }
 
     @RequestMapping(value = "/updateEvent", method = {RequestMethod.PUT, RequestMethod.GET})
-    public String update(@RequestParam("event") Event event){
+    public String update(@RequestParam("event")Event event){
         eventService.createEvent(event);
         return "redirect:/";
     }
@@ -51,14 +55,16 @@ public class EventController {
     @GetMapping("/getIdEvent")
     @ResponseBody
     public Event getId(long id){
-        Event event = eventService.getId(id);
+        Event event = eventService.findById(id);
         return event;
     }
 
-    @RequestMapping("/deleteEvent/{id}")
-    public String deleteProduct(@PathVariable(name = "id") Long id) {
-        eventService.deleteById(id);
+    @RequestMapping(value = "/deleteEvent/{id}", method = {RequestMethod.DELETE})
+    public String deleteProduct(@PathVariable(name = "id") Long id,Model model) {
+        Event event = eventService.findById(id);
+        eventRepository.delete(event);
 
         return "redirect:/";
     }
+
 }

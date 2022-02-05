@@ -18,17 +18,17 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	<div id="navbar">
 		<p>Event Management</p>
 		<div id="adminNav">
-			<a th:href="@{lecturer}"><button sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Lecturers</button></a>
-			<a th:href="@{users}" ><button sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Users</button></a>
-			<a th:href="@{events}"><button style="color:#f22045;background:white;">Events</button></a>
+			<a th:href="@{/lecturer}"><button sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Lecturers</button></a>
+			<a th:href="@{/users}" ><button sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">Users</button></a>
+			<a th:href="@{/}"><button style="color:#f22045;background:white;">Events</button></a>
 			<div id="dropdown">
 				<button th:href="profile">Profile</button>
 				<div id="droplist">
 					<!-- <a href="login.html"><button>Login</button></a>
                     <a href="#contact"><button>Contact us</button></a> -->
 <!--					href="profile.html"href="login.html"-->
-					<a  sec:authentication="name"><button>AdminName</button></a>
-					<a th:href="@{login}"><button>Log out</button></a>
+					<a th:href="@{/profile}" ><button >AdminName</button></a>
+					<a th:href="@{/login}"><button>Log out</button></a>
 				</div>
 			</div>
 		</div>
@@ -62,7 +62,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 					<h1 th:text="${event.name}">Event Name eeee eeee eee eeeeee eee</h1>
 				</div>
 				<div>
-					<p >Lecturer:</p> <p>Rrezart Prebreza</p>
+					<p >Lecturer:</p> <p th:text="${event.lectur}">Rrezart Prebreza</p>
 					<p>Campus:</p> <p th:text="${event.location}">Ferizaj</p>
 					<p>Date:</p> <p th:text="${event.date}">dd/mm/yyyy</p>
 					<p>Time:</p> <p th:text="${event.time}">hh:mm:ss</p>
@@ -70,8 +70,8 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 					<p>Description:</p> <p th:text="${event.description}">Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
 				</div>
 				<div id="adminBtn11" sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
-					<button onclick="editEvent(this)" th:href="@{/getIdEvent/(id=${event.id})}"><i class="fas fa-edit"></i></button>
-					<button onclick="deleteEvent(this)"sec:authorize="hasAuthority('ADMIN')" th:href="@{'/delete/' + ${event.id}}"><i class="fas fa-trash-alt"></i></button>
+					<button onclick="editEvent(this)" th:href="@{/getIdEvent/{id}(id=${event.id})}"><i class="fas fa-edit"></i></button>
+					<button  onclick="deleteEvent(this)" sec:authorize="hasAuthority('ADMIN')" th:action="@{/deleteEvent/{id}(id=${event.id})}"><i class="fas fa-trash-alt"></i></button>
 				</div>
 				<button id="close11" onclick="closeCard(this)">x</button>
 			</div>
@@ -80,23 +80,26 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 			<p id="subtitle2">This Semester</p>
 			<div id="line2"></div>
 		</div>
-<!--		<div id="thisSemester">-->
-<!--			<div id="card21" onclick="openCard(this)">-->
-<!--				<div>-->
-<!--					<img src="" alt="event">-->
-<!--					<h1>Event Name</h1>-->
-<!--				</div>-->
-<!--				<div>-->
-<!--					<p>Lecturer:</p> <p>Name Surname</p>-->
-<!--					<p>Campus:</p> <p>Prishtine</p>-->
-<!--					<p>Date:</p> <p>dd/mm/yyyy</p>-->
-<!--					<p>Time:</p> <p>hh:mm:ss</p>-->
-<!--					<p>Room:</p> <p>000</p>-->
-<!--					<p>Description:</p> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>-->
-<!--				</div>-->
-<!--				<button id="close21" onclick="closeCard(this)">x</button>-->
-<!--			</div>-->
-<!--		</div>-->
+		<div id="thisSemester">
+<div id="card21" onclick="openCard(this)" th:each="event : ${listEvent}" >
+				<div>
+					<img  src="../static/images/image.png" th:src="@{/images/image.png}" alt="event">
+
+
+					<h1 th:text="${event.name}">Event Name eeee eeee eee eeeeee eee</h1>
+
+				</div>
+				<div>
+					<p >Lecturer:</p> <p th:text="${event.lectur}">Rrezart Prebreza</p>
+					<p>Campus:</p> <p th:text="${event.location}">Ferizaj</p>
+					<p>Date:</p> <p th:text="${event.date}">dd/mm/yyyy</p>
+					<p>Time:</p> <p th:text="${event.time}">hh:mm:ss</p>
+					<p>Room:</p> <p th:text="${event.room}">000</p>
+					<p>Description:</p> <p th:text="${event.description}">Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+				</div>
+				<button id="close21" onclick="closeCard(this)">x</button>
+			</div>
+				</div>
 	</div>
 	<div id="footer">
 		<div id="contact"><p>Contact Us</p></div>
@@ -130,23 +133,24 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 		<label>Event Name:</label>
 		<input type="text" name="name" placeholder="Event Name" required >
 		<label>Lecturer:</label>
-		<input type="text" name="lecturer" placeholder="Name Surname"  >
+		<input type="text" name="lectur" placeholder="Event Lecturer" required >
 		<label>Campus:</label>
 		<input type="text" name="location" placeholder="Choose Campus" required >
 		<label>Date:</label>
-		<input type="date" name="date" >
+		<input type="date" name="date" required>
 		<label>Time:</label>
 		<input type="time" name="time" required >
 		<label>Room:</label>
 		<input type="text" name="room" placeholder="Choose Room" required >
 		<label>Description:</label>
 		<textarea name="description" placeholder="Description" rows="4" required></textarea>
+
 		<div><button type="submit">Save</button></div>
 	</form>
 </div>
 <div id="editEvent">
 	<button id="exitEdit" onclick="exitEdit(this)">x</button>
-	<form th:action="@{/updateEvent}" method="post">
+	<form th:action="@{/updateEvent}" method="put">
 		<label>Event Name:</label>
 		<input type="text" id="NameEdit" name="name" placeholder="Event Name" required>
 		<label>Lecturer:</label>
@@ -166,8 +170,8 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 </div>
 <div id="deleteEvent">
 	<p>Do you really want to delete this event?</p>
-	<button onclick="exitDelete(this)">Yes</button>
-	<button onclick="exitDelete(this)">No</button>
+	<button onclick="exitDelete(this)" th:action="@{/deleteEvent/{id}}">Yes</button>
+	<button onclick="exitDelete(this)" th:action="@{redirect:/}">No</button>
 </div>
 <script th:src="@{/js/script.js}"></script>
 </body>

@@ -36,6 +36,7 @@ public class Event {
     @Column(name = "event_time")
     @NotEmpty(message = "Please enter the time of the event")
     private String time;
+    private String lectur;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "lecturer_id", referencedColumnName = "id")
     public Set<Lecturer> lecturer;

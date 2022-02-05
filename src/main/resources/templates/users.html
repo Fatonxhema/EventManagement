@@ -24,8 +24,8 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
             <div id="dropdown">
                 <button>Profile</button>
                 <div id="droplist">
-                    <a th:href="@{/profile}" sec:authentication="name"><button>AdminName</button></a>
-                    <a th:action="@{/logout}" method="post"><button>Log out</button></a>
+                    <a th:href="@{/profile}" ><button >AdminName</button></a>
+                    <a th:action="@{/logout}"><button>Log out</button></a>
                 </div>
             </div>
         </div>
@@ -41,8 +41,8 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
             <tr>
                 <th>ID</th>
                 <th>Name</th>
+                <th>Lastname</th>
                 <th>Email</th>
-                <th>Status</th>
                 <th>Role</th>
                 <th>Actions</th>
             </tr>
@@ -51,7 +51,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
                 <td th:text="${user.name}">Name Surname</td>
                 <td th:text="${user.lastname}">Lastname</td>
                 <td th:text="${user.email}">Someone123@domain.com</td>
-                <td th:text="${user.roles}">Admin</td>
+                <td th:text="${user.getRoles()}">Admin</td>
                 <td><button onclick="actionsUser('edit')"><i class="fas fa-edit"></i>Edit</button><button onclick="actionsUser('delete')"><i class="fas fa-trash-alt"></i>Delete</button></td>
             </tr>
         </table>
@@ -83,54 +83,38 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 </div>
 
 <div id="divBg3"></div>
-<div id="addUser">
-    <button id="exitAdd3" onclick="exitActions2('add')">x</button>
-    <form action="#" method="post">
-        <label>Name:</label>
-        <input type="text" name="lecturerName" placeholder="Lecturer Name" required>
-        <label>Email:</label>
-        <input type="email" name="lecturerEmail" placeholder="example@domain.com" required>
-        <label>Status:</label>
-        <span>
-				<input type="radio" name="userStatus" value="Active" required>
-				<label>Active</label>
-				<input type="radio" name="userStatus" value="inActive" required>
-				<label>inActive</label>
-			</span>
-        <br><label>Role:</label>
-        <span>
-				<input type="radio" name="userRole" value="Admin" required>
-				<label>Admin</label>
-				<input type="radio" name="userRole" value="User" required>
-				<label>User</label>
-			</span>
-        <div><button type="submit">Add</button></div>
-    </form>
-</div>
-<div id="editUser">
-    <button id="exitEdit3" onclick="exitActions2('edit')">x</button>
-    <form action="#" method="post">
-        <label>Name:</label>
-        <input type="text" name="lecturerName" placeholder="Lecturer Name" required>
-        <label>Email:</label>
-        <input type="email" name="lecturerEmail" placeholder="example@domain.com" required>
-        <label>Status:</label>
-        <span>
-				<input type="radio" name="userStatus" value="Active" required>
-				<label>Active</label>
-				<input type="radio" name="userStatus" value="inActive" required>
-				<label>inActive</label>
-			</span>
-        <br><label>Role:</label>
-        <span>
-				<input type="radio" name="userRole" value="Admin" required>
-				<label>Admin</label>
-				<input type="radio" name="userRole" value="User" required>
-				<label>User</label>
-			</span>
-        <div><button type="submit">Save</button></div>
-    </form>
-</div>
+<!--<div id="addUser">-->
+<!--    <button id="exitAdd3" onclick="exitActions2('add')">x</button>-->
+<!--    <form action="#" method="post" >-->
+<!--        <label>Name:</label>-->
+<!--        <input type="text" name="name" placeholder="Lecturer Name" required>-->
+<!--        <label>Lastname:</label>-->
+<!--        <input type="text" name="lastname" placeholder="lastname" required>-->
+<!--        <label>Email:</label>-->
+<!--        <input type="email" name="email" placeholder="example@domain.com" required>-->
+<!--        <label>Username</label>-->
+<!--        <input type="text" name="username" placeholder="username" required>-->
+<!--        <label>Password: </label>-->
+<!--        <input type="text" name="password" placeholder=Password" required>-->
+<!--        <div><button type="submit">Save</button></div>-->
+<!--    </form>-->
+<!--</div>-->
+<!--<div id="editUser">-->
+<!--    <button id="exitEdit3" onclick="exitActions2('edit')">x</button>-->
+<!--    <form action="#" method="put" th:action="">-->
+<!--        <label>Name:</label>-->
+<!--        <input type="text" name="name" placeholder="Lecturer Name" required>-->
+<!--        <label>Email:</label>-->
+<!--        <input type="email" name="email" placeholder="example@domain.com" required>-->
+<!--        <label>Lastname:</label>-->
+<!--        <input type="text" name="lastname" placeholder="lastname" required>-->
+<!--        <label>Username</label>-->
+<!--        <input type="text" name="username" placeholder="username" required>-->
+<!--        <label>Password: </label>-->
+<!--        <input type="text" name="password" placeholder=Password" required>-->
+<!--        <div><button type="submit">Save</button></div>-->
+<!--    </form>-->
+<!--</div>-->
 <div id="deleteUser">
     <p>Do you really want to delete this user?</p>
     <button onclick="exitActions2('delete')">Yes</button>

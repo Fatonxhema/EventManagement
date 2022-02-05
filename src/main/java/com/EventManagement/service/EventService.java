@@ -2,6 +2,7 @@ package com.EventManagement.service;
 
 import com.EventManagement.model.Event;
 import com.EventManagement.repository.EventRepository;
+import com.EventManagement.repository.LecturerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class EventService {
     }
 
 
-    public Event getId(long id) {
+    public Event findById(long id) {
         return eventRepository.getById(id);
     }
 
