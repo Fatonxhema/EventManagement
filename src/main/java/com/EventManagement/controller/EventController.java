@@ -1,7 +1,6 @@
 package com.EventManagement.controller;
 
 import com.EventManagement.model.Event;
-import com.EventManagement.model.Lecturer;
 import com.EventManagement.repository.EventRepository;
 import com.EventManagement.service.EventService;
 import com.EventManagement.service.LecturerService;
@@ -29,7 +28,7 @@ public class EventController {
         List<Event> listEvent = eventService.findAllEvents();
         model.addAttribute("listEvent", listEvent);
 
-        return "events";
+        return "index";
     }
 
     @GetMapping("/newEvent")
