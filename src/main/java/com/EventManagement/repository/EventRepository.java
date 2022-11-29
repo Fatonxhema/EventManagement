@@ -11,8 +11,10 @@ import java.util.Date;
 public interface EventRepository extends JpaRepository<Event, Long> {
     @Query("SELECT e FROM event e WHERE e.location =:campus")
     Event findByCampus(String campus);
+
     @Query("SELECT e FROM event e WHERE e.date =:date")
     Event findByDate(Date date);
+
     @Query("select e from  event  e where e.lecturer = :id")
     Event findEventByLecturerId(long id);
 }

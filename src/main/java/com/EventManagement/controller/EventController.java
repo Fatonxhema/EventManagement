@@ -13,56 +13,41 @@ import java.util.List;
 
 @Controller
 public class EventController {
-
     @Autowired
     private EventService eventService;
     @Autowired
-    private EventRepository eventRepository;
-    @Autowired
     public LecturerService lecturerService;
 
-
-
-    @RequestMapping("/")
+    @GetMapping("/")
     public String viewHomePage(Model model) {
         List<Event> listEvent = eventService.findAllEvents();
         model.addAttribute("listEvent", listEvent);
-
         return "index";
     }
 
     @GetMapping("/newEvent")
-    public String showNewEventForm(Model model){
+    public String showNewEventForm(Model model) {
         Event event = new Event();
         model.addAttribute("event", event);
         return "new_event";
     }
+
     @RequestMapping(value = "/saveEvent", method = RequestMethod.POST)
-    public String saveEvent( Event event,Model model){
+    public String saveEvent(Event event, Model model) {
         model.addAttribute("ListLectur", lecturerService.findAllLecturer());
         eventService.createEvent(event);
         return "redirect:/";
     }
 
     @RequestMapping(value = "/updateEvent", method = {RequestMethod.PUT, RequestMethod.GET})
-    public String update(@RequestParam("event")Event event){
+    public String update(@RequestParam("event") Event event) {
         eventService.createEvent(event);
         return "redirect:/";
     }
 
-    //for popup modal id
-    @GetMapping("/getIdEvent")
-    @ResponseBody
-    public Event getId(long id){
-        Event event = eventService.findById(id);
-        return event;
-    }
-
     @RequestMapping(value = "/deleteEvent/{id}", method = {RequestMethod.DELETE})
-    public String deleteProduct(@PathVariable(name = "id") Long id,Model model) {
-        Event event = eventService.findById(id);
-        eventRepository.delete(event);
-
+    public String deleteProduct(@PathVariable(name = "id") Long id, Model model) {
+        eventService.deleteById(id);
         return "redirect:/";
     }
 

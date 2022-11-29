@@ -9,12 +9,12 @@ import javax.validation.constraints.NotEmpty;
 import java.sql.Date;
 import java.util.Set;
 
-@Table
+
 @Entity(name = "event")
 @Data
 public class Event {
 
-    @Id()
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "event_name")
@@ -37,7 +37,6 @@ public class Event {
     @NotEmpty(message = "Please enter the time of the event")
     private String time;
     private String lectur;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "lecturer_id", referencedColumnName = "id")
+    @OneToMany(mappedBy = "event")
     public Set<Lecturer> lecturer;
 }
