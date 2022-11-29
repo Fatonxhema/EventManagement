@@ -52,7 +52,7 @@ public class LecturerController {
     }
 
     @RequestMapping("/deleteLecturer/{id}")
-    public String deleteLecturer(@PathVariable(name = "id") long id, Model model) {
+    public String deleteLecturer(@PathVariable(name = "id") long id) {
         lecturerService.deleteLecturerById(id);
         return "redirect:/";
     }

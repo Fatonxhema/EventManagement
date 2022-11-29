@@ -24,7 +24,7 @@ public class LecturerService {
     public Optional<Lecturer> findLecturerById(long id) {
 
         Optional<Lecturer> optional = lecturerRepository.findById(id);
-        Lecturer lecturer = null;
+        Lecturer lecturer;
         if (optional.isPresent()) {
             lecturer = optional.get();
         } else {

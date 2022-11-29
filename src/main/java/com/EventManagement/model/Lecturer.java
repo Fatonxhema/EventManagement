@@ -4,10 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Null;
 
 @Entity
-@Table(name = "lecturer")
 @Data
 public class Lecturer {
     @Id
@@ -21,7 +19,6 @@ public class Lecturer {
     private String email;
     @NotEmpty(message = "Please enter phone number")
     private String phone_no;
-//    @NotEmpty(message = "Please enter address")
     private String address;
     @ManyToOne
     @JoinColumn(name = "event_id")

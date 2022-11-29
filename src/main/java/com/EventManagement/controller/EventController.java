@@ -1,7 +1,6 @@
 package com.EventManagement.controller;
 
 import com.EventManagement.model.Event;
-import com.EventManagement.repository.EventRepository;
 import com.EventManagement.service.EventService;
 import com.EventManagement.service.LecturerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import java.util.List;
 
 @Controller
 public class EventController {
+    public static final String REDIRECT = "redirect:/";
     @Autowired
     private EventService eventService;
     @Autowired
@@ -32,23 +32,22 @@ public class EventController {
         return "new_event";
     }
 
-    @RequestMapping(value = "/saveEvent", method = RequestMethod.POST)
+    @PostMapping( "/saveEvent")
     public String saveEvent(Event event, Model model) {
         model.addAttribute("ListLectur", lecturerService.findAllLecturer());
         eventService.createEvent(event);
-        return "redirect:/";
+        return REDIRECT;
     }
 
     @RequestMapping(value = "/updateEvent", method = {RequestMethod.PUT, RequestMethod.GET})
     public String update(@RequestParam("event") Event event) {
         eventService.createEvent(event);
-        return "redirect:/";
+        return REDIRECT;
     }
 
-    @RequestMapping(value = "/deleteEvent/{id}", method = {RequestMethod.DELETE})
+    @DeleteMapping( "/deleteEvent/{id}")
     public String deleteProduct(@PathVariable(name = "id") Long id, Model model) {
         eventService.deleteById(id);
-        return "redirect:/";
+        return REDIRECT;
     }
-
 }

@@ -3,8 +3,6 @@ package com.EventManagement.config;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
-
 import com.EventManagement.model.Role;
 import com.EventManagement.model.User;
 import org.springframework.security.core.GrantedAuthority;

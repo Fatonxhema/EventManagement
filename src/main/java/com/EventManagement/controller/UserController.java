@@ -14,13 +14,14 @@ import java.util.*;
 
 @Controller
 public class UserController {
+    public static final String REDIRECT = "redirect:/";
     @Autowired
     private UserService userService;
 
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {
         if (userService.isAuthenticated()) {
-            return "redirect:/";
+            return REDIRECT;
         }
         if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");
@@ -45,7 +46,7 @@ public class UserController {
     @PostMapping("/saveUser")
     public String saveUser(User user) {
         userService.saveUser(user);
-        return "redirect:/";
+        return REDIRECT;
     }
 
     @GetMapping("/register")
@@ -61,7 +62,7 @@ public class UserController {
             return "register";
         }
         userService.saveUser(user);
-        return "redirect:/";
+        return REDIRECT;
     }
 
     @PostMapping("/registerAdmin")
